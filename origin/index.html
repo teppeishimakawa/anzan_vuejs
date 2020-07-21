@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<link href="./style.css" rel="stylesheet" type="text/css"/>
+<meta charset="UTF-8" />
+<meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>anzan</title>
+<style>
+</style>
+ 
+    <!-- vue -->
+    <script src="https://unpkg.com/vue"></script>
+    <!--script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script-->
+    <!-- http-vue-loader -->
+    <script src="https://unpkg.com/http-vue-loader"></script>
+</head>
+
+
+
+
+<body oncontextmenu='return false;' oncopy='return false;'>
+
+<div id="app">
+<!--user-select:none,oncontextmenu='return false;' oncopy='return false;'重要！ボタン文字が選択状態になってしまう。-->
+<div id="title">フラッシュ暗算 5回正解して！</div>
+<div class="order_all">
+<div class="order" id="order_issue" style="visibility: hidden;" v-html="order_issue"></div>
+
+
+<div id="order_comment" v-html="order_comment"></div>
+</div>
+
+<!--div id="ans"  style='position: fixed;top: 5%; right:calc(50% - 100px);  width:200px;height:70px;text-align:center;font-size: 60px;color: black'></div-->
+<!--progress value="0" max="100" v-bind:value="val" id="myProgress"></progress-->
+<my_progress ref="prog"></my_progress>
+
+<Counter ref="counterComp"></Counter>
+
+
+<div id="score" v-html="score"></div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="key_all">
+  <div>
+  <button  class="key green" type="button" v-on:click="edit(7)" v-on:scroll.passive="onScroll" value="7" >7</button>
+  <button  class="key green" v-on:click="edit(8)" v-on:scroll.passive="onScroll"　value="8"  >8</button>
+  <button  class="key green"  v-on:click="edit(9)" v-on:scroll.passive="onScroll" value="9"  >9</button>
+  </div>
+  <div>
+  <button  class="key green" v-on:click="edit(4)" v-on:scroll.passive="onScroll" value="4"  >4</button>
+  <button  class="key green"  v-on:click="edit(5)" v-on:scroll.passive="onScroll" value="5"  >5</button>
+  <button class="key green"  v-on:click="edit(6)" v-on:scroll.passive="onScroll" value="6"  >6</button>
+  </div>
+  <div>
+  <button class="key green" v-on:click="edit(1)" v-on:scroll.passive="onScroll" value="1"  >1</button>
+  <button class="key green"  v-on:click="edit(2)" v-on:scroll.passive="onScroll" value="2"  >2</button>
+  <button class="key green"  v-on:click="edit(3)" v-on:scroll.passive="onScroll" value="3"  >3</button>
+  </div>
+  <div>
+  <button class="key green"  v-on:click="edit(0)" v-on:scroll.passive="onScroll" value="0" >0</button>
+  </div>
+  <div>
+  <button class="green" id="enter" v-on:click="result" v-on:scroll.passive="onScroll" >enter</button>
+  </div>
+</div>
+
+<div class="btn_all">
+    <button class="green" id="stt" v-on:click="click">start</button>
+    <button class="green"  v-on:click="reload">reload</button>
+</div>
+<!--appの</div>-->
+</div>
+
+
+<script type="module" src="./index.js">
+</script>
+
+
+
+
+</body>
+</html>
