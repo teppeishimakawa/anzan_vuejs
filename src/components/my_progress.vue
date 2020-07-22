@@ -16,7 +16,6 @@ export default {
     updateProgress () {
       //  console.log(store.state.cnt)
       this.val++
-      console.log(store.state.intervalID)
       if (this.val === 100) { clearInterval(store.state.intervalID) }
     },
     setId () {
@@ -33,10 +32,9 @@ export default {
     getflg (num, old) {
       console.log('watch', num)
       this.val = 0
-      //  300msおきにプログレスバー更新。30秒で100%。storeの値は参照だけでなくjsから直変更、代入もできる。
+      //  300msおきにプログレスバー更新。30秒で100%。storeの値は参照だけでなくjsから直変更、代入もできるがcommit推奨
       this.setId()
       //  store.state.intervalID = setInterval(this.updateProgress, 300)
-      console.log(store.state.intervalID)
     }
   }
 }

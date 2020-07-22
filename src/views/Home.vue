@@ -2,14 +2,14 @@
   <div>
     <div id="title">フラッシュ暗算 5回正解して！</div>
     <div class="order_all">
-      <div class="order" id="order_issue" style="visibility: hidden;" v-html="order_issue"></div>
-      <div id="order_comment" v-html="order_comment"></div>
+      <div class="order" id="order_issue"  v-html="order_issue" :class="classObjB"></div>
+      <div id="order_comment" v-html="order_comment" :class="classObjC"></div>
     </div>
     <!--div id="ans"  style='position: fixed;top: 5%; right:calc(50% - 100px);  width:200px;height:70px;text-align:center;font-size: 60px;color: black'></div-->
     <!--progress value="0" max="100" v-bind:value="val" id="myProgress"></progress-->
     <my-progress></my-progress>
     <my-counter></my-counter>
-    <div id="score" v-html="score"></div>
+    <div id="score" v-html="score" :class="{ textred: !this.$store.state.okflg}"></div>
     <br>
     <br>
     <br>
@@ -32,14 +32,14 @@
         <button class="key green" @click="edit(3)" v-on:scroll.passive="onScroll" value="3">3</button>
       </div>
       <div>
-        <button class="key green" @click="edit(0)" v-on:scroll.passive="onScroll" value="0">0</button>
+        <button class="key green zero" @click="edit(0)" v-on:scroll.passive="onScroll" value="0">0</button>
       </div>
       <div>
-        <button class="green" id="enter" @click="result" v-on:scroll.passive="onScroll">enter</button>
+        <button class="enter" @click="result" v-on:scroll.passive="onScroll" :class="classObjA">enter</button>
       </div>
     </div>
     <div class="btn_all">
-      <button class="green" id="stt" @click="click">start</button>
+      <button class="green" id="stt" :disabled="this.$store.state.flg" @click="click">start</button>
       <button class="green" @click="reload">reload</button>
     </div>
   </div>
@@ -83,11 +83,17 @@ export default {
     decrement () {
       store.commit('decrement')
     },
-    flgon () {
-      store.commit('flgon')
+    sttflgon () {
+      store.commit('sttflgon')
+    },
+    okflg () {
+      store.commit('okflg')
+    },
+    ngflg () {
+      store.commit('ngflg')
     },
 
-    edit: function edit (e) {
+    edit (e) {
       this.order_issue = this.order_issue + e
       var chk
       if (this.kigou[this.random2] === '+') {
@@ -96,16 +102,16 @@ export default {
         chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
       }
       if (parseInt(this.order_issue) === (Math.abs(chk))) {
-        document.getElementById('enter').className = 'green'
-      } else { document.getElementById('enter').className = 'red' }
+        //  this.okflg()
+        //  document.getElementById('enter').className = 'green'
+      } else { /* this.ngflg() */ }
     },
 
-    result: function result () {
+    result () {
       var chk
       if (this.kigou[this.random2] === '+') {
         chk = this.num_arr1[this.random1] + this.num_arr2[this.random1_2]
         console.log(chk)
-        console.log(this.order_issue)
       } else {
         chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
       }
@@ -118,21 +124,19 @@ export default {
     },
 
     click: function click () {
-      if (store.state.flg === 0) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は、それぞれに「.bind(this)」をつける必要あり
-        document.getElementById('stt').disabled = true
-        //  flgon検知でstartshowing(),updateprogress()開始
-        this.flgon()
-        document.getElementById('order_issue').style.visibility = 'visible'
+      if (!store.state.flg) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は、それぞれに「.bind(this)」をつける必要あり
+        //  sttflg検知でstartshowing(),updateprogress()開始
+        this.sttflgon()
         this.order_issue = this.num_arr1[this.random1]
         setTimeout(function () { this.order_issue = '' }.bind(this), 500)
         setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 800)
         setTimeout(function () { this.order_issue = '' }.bind(this), 1300)
         setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 1600)
-        document.getElementById('enter').style.pointerEvents = 'auto'
+        //  document.getElementById('enter').style.pointerEvents = 'auto'
       } else {}
     },
 
-    next: function next () {
+    next () {
       this.increment()
       console.log()
       this.score = store.state.cnt
@@ -150,19 +154,21 @@ export default {
       setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 2200)
     },
 
-    NGnext: function NGnext () {
+    NGnext () {
       this.decrement()
       this.score = store.state.cnt
       this.random1 = random(10)
       this.random1_2 = random(10)
       this.random2 = random(3)
-      document.getElementById('order_issue').style.color = 'red'
+      this.ngflg()
+      //  document.getElementById('order_issue').style.color = 'red'
       this.order_issue = 'NG...'
       this.order_comment = ''
       setTimeout(function () { this.order_issue = '' }.bind(this), 300)
       setTimeout(function () {
         this.order_issue = this.num_arr1[this.random1]
-        document.getElementById('order_issue').style.color = 'black'
+        this.okflg()
+        //  document.getElementById('order_issue').style.color = 'black'
       }.bind(this), 600)
       setTimeout(function () { this.order_issue = '' }.bind(this), 1100)
       setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 1400)
@@ -170,10 +176,48 @@ export default {
       setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 2200)
     },
 
-    reload: function () { location.reload() }
+    reload () { location.reload() }
 
   //  methods
+  },
+
+  computed: {
+    getendflg () {
+      return store.getters.getendflg
+    },
+
+    classObjA: function () {
+      return {
+        //  canpoint: this.$store.state.flg && !this.$store.state.endflg,
+        notpoint: !this.$store.state.flg || this.$store.state.endflg,
+        green: this.$store.state.okflg,
+        red: !this.$store.state.okflg
+      }
+    },
+
+    classObjB: function () {
+      return {
+        //  canlook: this.$store.state.flg && !this.$store.state.endflg,
+        notlook: !this.$store.state.flg || this.$store.state.endflg,
+        textblack: this.$store.state.okflg,
+        textred: !this.$store.state.okflg
+      }
+    },
+
+    classObjC: function () {
+      return {
+        //  canlook: this.$store.state.flg && !this.$store.state.endflg,
+        notlook: !this.$store.state.flg || this.$store.state.endflg
+      }
+    }
+  },
+
+  watch: {
+    getendflg (num, old) {
+      console.log('watch', num)
+    }
   }
+
   //  methods:{ edit:function(e){this.order_issue=e}},
   //  export default
 }
