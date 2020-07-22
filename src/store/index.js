@@ -8,9 +8,10 @@ export default new Vuex.Store({
   state: {
     cnt: 0,
     flg: 0,
-    intervalID: ''
+    endflg: 0,
+    intervalID: 0
   },
-  // getters:storeのstate取得をするもの
+  // getters:storeの複数stateを使って計算した結果を取得をするもの
   getters: {
     getflg: function (state) {
       return state.flg
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     flgon (state) {
       state.flg = 1
+    },
+    setId (state, param) {
+      state.intervalID = param
     }
   },
 

@@ -75,12 +75,6 @@ export default {
     }
   },
 
-  computed: {
-    //  関数はそのhtmlがあるファイルに記述
-    count () {
-      return store.state.count
-    }
-  },
   //  action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
   methods: {
     increment () {
