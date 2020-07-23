@@ -1,15 +1,13 @@
 <template>
   <div>
     <div id="title">フラッシュ暗算 5回正解して！</div>
-    <div class="order_all">
-      <div class="order" id="order_issue"  v-html="order_issue" :class="classObjB"></div>
+      <my-progress></my-progress>
+      <my-counter></my-counter>
+      <div id="order_issue" v-html="order_issue" :class="classObjB"></div>
       <div id="order_comment" v-html="order_comment" :class="classObjC"></div>
-    </div>
     <!--div id="ans"  style='position: fixed;top: 5%; right:calc(50% - 100px);  width:200px;height:70px;text-align:center;font-size: 60px;color: black'></div-->
-    <!--progress value="0" max="100" v-bind:value="val" id="myProgress"></progress-->
-    <my-progress></my-progress>
-    <my-counter></my-counter>
-    <div id="score" v-html="score" :class="{ textred: !this.$store.state.okflg}"></div>
+    <!--div id="score" v-html="score" :class="{ textred: !this.$store.state.okflg}"></div-->
+    <my-score></my-score>
     <br>
     <br>
     <br>
@@ -17,22 +15,22 @@
     <br>
     <div class="key_all">
       <div>
-        <button class="key green" type="button" v-on:click="edit(7)" v-on:scroll.passive="onScroll" value="7">7</button>
-        <button class="key green" @click="edit(8)" v-on:scroll.passive="onScroll" value="8">8</button>
-        <button class="key green" @click="edit(9)" v-on:scroll.passive="onScroll" value="9">9</button>
+        <button class="key green" type="button" v-on:click="edit(7)" v-on:scroll.passive="onScroll" value="7" :class="classObjD">7</button>
+        <button class="key green" @click="edit(8)" v-on:scroll.passive="onScroll" value="8" :class="classObjD">8</button>
+        <button class="key green" @click="edit(9)" v-on:scroll.passive="onScroll" value="9" :class="classObjD">9</button>
       </div>
       <div>
-        <button class="key green" @click="edit(4)" v-on:scroll.passive="onScroll" value="4">4</button>
-        <button class="key green" @click="edit(5)" v-on:scroll.passive="onScroll" value="5">5</button>
-        <button class="key green" @click="edit(6)" v-on:scroll.passive="onScroll" value="6">6</button>
+        <button class="key green" @click="edit(4)" v-on:scroll.passive="onScroll" value="4" :class="classObjD">4</button>
+        <button class="key green" @click="edit(5)" v-on:scroll.passive="onScroll" value="5" :class="classObjD">5</button>
+        <button class="key green" @click="edit(6)" v-on:scroll.passive="onScroll" value="6" :class="classObjD">6</button>
       </div>
       <div>
-        <button class="key green" @click="edit(1)" v-on:scroll.passive="onScroll" value="1">1</button>
-        <button class="key green" @click="edit(2)" v-on:scroll.passive="onScroll" value="2">2</button>
-        <button class="key green" @click="edit(3)" v-on:scroll.passive="onScroll" value="3">3</button>
+        <button class="key green" @click="edit(1)" v-on:scroll.passive="onScroll" value="1" :class="classObjD">1</button>
+        <button class="key green" @click="edit(2)" v-on:scroll.passive="onScroll" value="2" :class="classObjD">2</button>
+        <button class="key green" @click="edit(3)" v-on:scroll.passive="onScroll" value="3" :class="classObjD">3</button>
       </div>
       <div>
-        <button class="key green zero" @click="edit(0)" v-on:scroll.passive="onScroll" value="0">0</button>
+        <button class="key green zero" @click="edit(0)" v-on:scroll.passive="onScroll" value="0" :class="classObjD">0</button>
       </div>
       <div>
         <button class="enter" @click="result" v-on:scroll.passive="onScroll" :class="classObjA">enter</button>
@@ -48,23 +46,22 @@
 // @ is an alias to /src
 import myProgress from '@/components/my_progress.vue'
 import myCounter from '@/components/my_counter.vue'
+import myScore from '@/components/my_score.vue'
 import store from '../store'
 
 export default {
   name: 'Home',
   components: {
-    //  html要素名:コンポーネント名
+    //  html要素名:コンポーネント名の書き方もok
     myProgress,
-    myCounter
+    myCounter,
+    myScore
   },
-
-  //  mixins: [progress_mixin],
 
   data: function () {
     return {
       order_issue: '',
       order_comment: '',
-      score: '',
       num_arr1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       num_arr2: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       comment_arr: ['&nbsp;&nbsp;足して！', '&nbsp;&nbsp;足して！', '&nbsp;&nbsp;掛けて！'],
@@ -95,7 +92,7 @@ export default {
 
     edit (e) {
       this.order_issue = this.order_issue + e
-      var chk
+      /* var chk
       if (this.kigou[this.random2] === '+') {
         chk = this.num_arr1[this.random1] + this.num_arr2[this.random1_2]
       } else {
@@ -104,7 +101,7 @@ export default {
       if (parseInt(this.order_issue) === (Math.abs(chk))) {
         //  this.okflg()
         //  document.getElementById('enter').className = 'green'
-      } else { /* this.ngflg() */ }
+      } else { this.ngflg() } */
     },
 
     result () {
@@ -116,30 +113,30 @@ export default {
         chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
       }
       if (parseInt(this.order_issue) === (Math.abs(chk))) {
+        this.okflg()
         this.next()
       } else {
+        this.ngflg()
         this.NGnext()
       }
-      //  this.order_issue="";
     },
 
     click: function click () {
       if (!store.state.flg) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は、それぞれに「.bind(this)」をつける必要あり
-        //  sttflg検知でstartshowing(),updateprogress()開始
+        //  sttflgon検知でstartshowing(),updateprogress()開始
         this.sttflgon()
         this.order_issue = this.num_arr1[this.random1]
         setTimeout(function () { this.order_issue = '' }.bind(this), 500)
         setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 800)
         setTimeout(function () { this.order_issue = '' }.bind(this), 1300)
         setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 1600)
+        setTimeout(function () { this.order_comment = '' }.bind(this), 2200)
         //  document.getElementById('enter').style.pointerEvents = 'auto'
       } else {}
     },
 
     next () {
       this.increment()
-      console.log()
-      this.score = store.state.cnt
       this.random1 = random(10)
       this.random1_2 = random(10)
       this.random2 = random(3)
@@ -152,16 +149,14 @@ export default {
       setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 1400)
       setTimeout(function () { this.order_issue = '' }.bind(this), 1900)
       setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 2200)
+      setTimeout(function () { this.order_comment = '' }.bind(this), 2800)
     },
 
     NGnext () {
       this.decrement()
-      this.score = store.state.cnt
       this.random1 = random(10)
       this.random1_2 = random(10)
       this.random2 = random(3)
-      this.ngflg()
-      //  document.getElementById('order_issue').style.color = 'red'
       this.order_issue = 'NG...'
       this.order_comment = ''
       setTimeout(function () { this.order_issue = '' }.bind(this), 300)
@@ -174,6 +169,7 @@ export default {
       setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 1400)
       setTimeout(function () { this.order_issue = '' }.bind(this), 1900)
       setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 2200)
+      setTimeout(function () { this.order_comment = '' }.bind(this), 2800)
     },
 
     reload () { location.reload() }
@@ -190,8 +186,10 @@ export default {
       return {
         //  canpoint: this.$store.state.flg && !this.$store.state.endflg,
         notpoint: !this.$store.state.flg || this.$store.state.endflg,
-        green: this.$store.state.okflg,
-        red: !this.$store.state.okflg
+        textwhite: this.$store.state.okflg,
+        textred: !this.$store.state.okflg
+        //  green: this.$store.state.okflg,
+        //  red: !this.$store.state.okflg
       }
     },
 
@@ -208,6 +206,13 @@ export default {
       return {
         //  canlook: this.$store.state.flg && !this.$store.state.endflg,
         notlook: !this.$store.state.flg || this.$store.state.endflg
+      }
+    },
+
+    classObjD: function () {
+      return {
+        textwhite: this.$store.state.okflg,
+        textred: !this.$store.state.okflg
       }
     }
   },

@@ -4,12 +4,12 @@
   <div id="time">{{time}}</div>
 </template>
 <script>
-import mixin from '@/components/mixin.js'
+//  import mixin from '@/components/mixin.js'
 import store from '../store'
 
 export default {
   // cunsom要素をmixin
-  mixins: [mixin],
+  //  mixins: [mixin],
   data: function () {
     return {
       PassSec: '',
@@ -65,13 +65,13 @@ export default {
   },
 
   computed: {
-    getflg () {
-      return store.getters.getflg
+    getsttflg () {
+      return store.getters.getsttflg
     }
   },
 
   watch: {
-    getflg (num, old) {
+    getsttflg (num, old) {
       console.log('watch', num)
       this.startShowing()
     }

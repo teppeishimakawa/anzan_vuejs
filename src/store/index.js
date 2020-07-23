@@ -10,16 +10,20 @@ export default new Vuex.Store({
     flg: false,
     endflg: false,
     okflg: true,
-    intervalID: 0
+    intervalID: 0,
+    order_issue: ''
   },
 
   // getters:storeの複数stateを使って計算した結果を取得をするもの
   getters: {
-    getflg: function (state) {
+    getsttflg: function (state) {
       return state.flg
     },
     getendflg: function (state) {
       return state.endflg
+    },
+    getcnt: function (state) {
+      return state.cnt
     }
   },
   //  mutations:変数の値を変える関数。commitで実行
@@ -45,6 +49,9 @@ export default new Vuex.Store({
     //  入力したい状態が元ファイルの関数の返り値なので第二引数利用
     setId (state, param) {
       state.intervalID = param
+    },
+    order_issue (state, param) {
+      state.order_issue = param
     }
   },
 

@@ -70,12 +70,17 @@ transition: filter 0s;
 
 .textred
 {
-color:red
+color:#ff6347
 }
 
 .textblack
 {
 color:black
+}
+
+.textwhite
+{
+color:white
 }
 
 button {
@@ -102,7 +107,6 @@ button {
     border-radius: 4px;
     width:80px;
     margin:10px;
-
 }
 button[disabled] {
     cursor: not-allowed;
@@ -127,6 +131,7 @@ bottom: 6%;
 left: 50%;
 transform: translate(-50%, 0%);
 width:330px;
+z-index: 10000
 }
 
 .key
@@ -151,6 +156,51 @@ margin: 5px 0px;
 padding: 25px 0px 25px 0px;
 margin:0px 0px 20px 0px;
 z-index: 100;
+}
+
+.order_all
+{
+top: 10%;
+right:calc(50% - 150px)
+}
+
+#time
+{
+position: fixed;top: 15%; right:5%;  width:200px;height:70px;text-align:right;font-size: 15px;
+}
+
+#score
+{
+position: fixed;bottom: 7%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
+}
+
+#order_issue
+{
+  position: fixed;
+    top: 20%;
+  right: calc(50% - 75px);
+display:block;
+font-size: 60px;
+width:150px;
+height:100px;
+margin:0px 0px;
+text-align: center;
+z-index: 101;
+
+}
+
+#order_comment
+{
+  position: fixed;
+  top: 25%;
+  right: calc(50% - 75px);
+display:block;
+font-size: 25px;
+width:150px;
+height:100px;
+margin:0px 0px;
+text-align: center;
+z-index: 101;
 }
 
 </style>

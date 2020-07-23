@@ -23,13 +23,13 @@ export default {
     }
   },
   computed: {
-    getflg () {
-      return store.getters.getflg
+    getsttflg () {
+      return store.getters.getsttflg
     }
   },
 
   watch: {
-    getflg (num, old) {
+    getsttflg (num, old) {
       console.log('watch', num)
       this.val = 0
       //  300msおきにプログレスバー更新。30秒で100%。storeの値は参照だけでなくjsから直変更、代入もできるがcommit推奨
