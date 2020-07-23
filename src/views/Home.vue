@@ -3,8 +3,9 @@
     <div id="title">フラッシュ暗算 5回正解して！</div>
       <my-progress></my-progress>
       <my-counter></my-counter>
-      <div id="order_issue" v-html="order_issue" :class="classObjB"></div>
-      <div id="order_comment" v-html="order_comment" :class="classObjC"></div>
+      <div id="question" >{{question}}</div>
+      <div id="comment" v-html="comment" :class="classObjB"></div>
+      <div :class="classObjB">{{this.$store.state.answer}}</div>
     <!--div id="ans"  style='position: fixed;top: 5%; right:calc(50% - 100px);  width:200px;height:70px;text-align:center;font-size: 60px;color: black'></div-->
     <!--div id="score" v-html="score" :class="{ textred: !this.$store.state.okflg}"></div-->
     <my-score></my-score>
@@ -60,8 +61,9 @@ export default {
 
   data: function () {
     return {
-      order_issue: '',
-      order_comment: '',
+      question: '',
+      //  answer: '',
+      comment: '',
       num_arr1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       num_arr2: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       comment_arr: ['&nbsp;&nbsp;足して！', '&nbsp;&nbsp;足して！', '&nbsp;&nbsp;掛けて！'],
@@ -89,30 +91,27 @@ export default {
     ngflg () {
       store.commit('ngflg')
     },
+    answer (e) {
+      store.commit('answer', store.state.answer + e)
+    },
+    answernon (e) {
+      store.commit('answer', '')
+    },
 
     edit (e) {
-      this.order_issue = this.order_issue + e
-      /* var chk
-      if (this.kigou[this.random2] === '+') {
-        chk = this.num_arr1[this.random1] + this.num_arr2[this.random1_2]
-      } else {
-        chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
-      }
-      if (parseInt(this.order_issue) === (Math.abs(chk))) {
-        //  this.okflg()
-        //  document.getElementById('enter').className = 'green'
-      } else { this.ngflg() } */
+      //  this.answer = this.answer + e
+      this.answer(e)
     },
 
     result () {
       var chk
       if (this.kigou[this.random2] === '+') {
         chk = this.num_arr1[this.random1] + this.num_arr2[this.random1_2]
-        console.log(chk)
+        console.log(chk, parseInt(store.state.answer))
       } else {
         chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
       }
-      if (parseInt(this.order_issue) === (Math.abs(chk))) {
+      if (parseInt(store.state.answer) === (Math.abs(chk))) {
         this.okflg()
         this.next()
       } else {
@@ -125,12 +124,12 @@ export default {
       if (!store.state.flg) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は、それぞれに「.bind(this)」をつける必要あり
         //  sttflgon検知でstartshowing(),updateprogress()開始
         this.sttflgon()
-        this.order_issue = this.num_arr1[this.random1]
-        setTimeout(function () { this.order_issue = '' }.bind(this), 500)
-        setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 800)
-        setTimeout(function () { this.order_issue = '' }.bind(this), 1300)
-        setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 1600)
-        setTimeout(function () { this.order_comment = '' }.bind(this), 2200)
+        this.question = this.num_arr1[this.random1]
+        setTimeout(function () { this.question = '' }.bind(this), 500)
+        setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 800)
+        setTimeout(function () { this.question = '' }.bind(this), 1300)
+        setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 1600)
+        setTimeout(function () { this.comment = '' }.bind(this), 2200)
         //  document.getElementById('enter').style.pointerEvents = 'auto'
       } else {}
     },
@@ -141,15 +140,16 @@ export default {
       this.random1_2 = random(10)
       this.random2 = random(3)
       //  空白300ms,文字表示500ms
-      this.order_issue = 'ok!'
-      this.order_comment = ''
-      setTimeout(function () { this.order_issue = '' }.bind(this), 300)
-      setTimeout(function () { this.order_issue = this.num_arr1[this.random1] }.bind(this), 600)
-      setTimeout(function () { this.order_issue = '' }.bind(this), 1100)
-      setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 1400)
-      setTimeout(function () { this.order_issue = '' }.bind(this), 1900)
-      setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 2200)
-      setTimeout(function () { this.order_comment = '' }.bind(this), 2800)
+      this.comment = 'ok!'
+      this.answernon()
+      //  this.answer = ''
+      setTimeout(function () { this.comment = '' }.bind(this), 300)
+      setTimeout(function () { this.question = this.num_arr1[this.random1] }.bind(this), 600)
+      setTimeout(function () { this.question = '' }.bind(this), 1100)
+      setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 1400)
+      setTimeout(function () { this.question = '' }.bind(this), 1900)
+      setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 2200)
+      setTimeout(function () { this.comment = '' }.bind(this), 2800)
     },
 
     NGnext () {
@@ -157,19 +157,20 @@ export default {
       this.random1 = random(10)
       this.random1_2 = random(10)
       this.random2 = random(3)
-      this.order_issue = 'NG...'
-      this.order_comment = ''
-      setTimeout(function () { this.order_issue = '' }.bind(this), 300)
+      this.comment = 'NG...'
+      //  this.answer = ''
+      this.answernon()
+      setTimeout(function () { this.comment = '' }.bind(this), 300)
       setTimeout(function () {
-        this.order_issue = this.num_arr1[this.random1]
+        this.question = this.num_arr1[this.random1]
         this.okflg()
-        //  document.getElementById('order_issue').style.color = 'black'
+        //  document.getElementById('question').style.color = 'black'
       }.bind(this), 600)
-      setTimeout(function () { this.order_issue = '' }.bind(this), 1100)
-      setTimeout(function () { this.order_issue = this.num_arr2[this.random1_2] }.bind(this), 1400)
-      setTimeout(function () { this.order_issue = '' }.bind(this), 1900)
-      setTimeout(function () { this.order_comment = this.comment_arr[this.random2] }.bind(this), 2200)
-      setTimeout(function () { this.order_comment = '' }.bind(this), 2800)
+      setTimeout(function () { this.question = '' }.bind(this), 1100)
+      setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 1400)
+      setTimeout(function () { this.question = '' }.bind(this), 1900)
+      setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 2200)
+      setTimeout(function () { this.comment = '' }.bind(this), 2800)
     },
 
     reload () { location.reload() }
@@ -223,7 +224,7 @@ export default {
     }
   }
 
-  //  methods:{ edit:function(e){this.order_issue=e}},
+  //  methods:{ edit:function(e){this.question=e}},
   //  export default
 }
 

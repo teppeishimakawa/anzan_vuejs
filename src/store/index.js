@@ -11,7 +11,7 @@ export default new Vuex.Store({
     endflg: false,
     okflg: true,
     intervalID: 0,
-    order_issue: ''
+    answer: ''
   },
 
   // getters:storeの複数stateを使って計算した結果を取得をするもの
@@ -50,8 +50,8 @@ export default new Vuex.Store({
     setId (state, param) {
       state.intervalID = param
     },
-    order_issue (state, param) {
-      state.order_issue = param
+    answer (state, param) {
+      state.answer = param
     }
   },
 

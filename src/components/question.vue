@@ -1,7 +1,6 @@
 <!--startShowing (),stopShowing ()の実行指示,変数cntは外部から取得-->
 <template>
-  <!--子のhtmlコンポーネントをnest-->
-  <div id="time">{{time}}</div>
+      <div id="question" >{{question}}</div>
 </template>
 <script>
 //  import mixin from '@/components/mixin.js'
@@ -12,11 +11,7 @@ export default {
   //  mixins: [mixin],
   data: function () {
     return {
-      PassSec: '',
-      PassageID: '',
-      time: '',
-      sec: 30,
-      num: 5
+      question: ''
     }
   },
 
@@ -44,7 +39,7 @@ export default {
         this.endflgon()
         this.endChkBase()
         //  ///////mixin///////////////////////////
-        //  this.endChkCustom()
+        this.endChkCustom()
         //  ///////////////////////////////////////
       }
     },

@@ -174,7 +174,7 @@ position: fixed;top: 15%; right:5%;  width:200px;height:70px;text-align:right;fo
 position: fixed;bottom: 7%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
 }
 
-#order_issue
+#question
 {
   position: fixed;
     top: 20%;
@@ -189,7 +189,7 @@ z-index: 101;
 
 }
 
-#order_comment
+#comment
 {
   position: fixed;
   top: 25%;
