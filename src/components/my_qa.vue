@@ -1,11 +1,10 @@
 <!---->
 <template>
   <div>
-      <div id="question" >{{question}}</div>
-      <div id="comment" v-html="comment" :class="classObjB"></div>
-      <div :class="classObjB">{{this.$store.state.answer}}</div>
-    <!--div id="ans"  style='position: fixed;top: 5%; right:calc(50% - 100px);  width:200px;height:70px;text-align:center;font-size: 60px;color: black'></div-->
-    <!--div id="score" v-html="score" :class="{ textred: !this.$store.state.okflg}"></div-->
+      <div class="qa" :class="classObjC">{{question}} </div>
+      <div class="comment" v-html="comment" :class="classObjB"></div>
+      <div class="qa" :class="classObjB">{{this.answer}}</div>
+
     <div class="key_all">
       <div>
         <button class="key green" @click="edit(7)" @scroll.passive="onScroll" value="7" :class="classObjD">7</button>
@@ -30,17 +29,19 @@
       </div>
   </div>
 
-    <div class="btn_all">
-      <button class="green" id="stt" :disabled="this.$store.state.flg" @click="click">start</button>
-      <button class="green" @click="reload">reload</button>
+    <div class='btn_all'>
+      <button class='green' :disabled="this.flg" @click="click">start</button>
+      <button class='green' @click="reload">reload</button>
     </div>
 
 </div>
+
 </template>
 
 <script>
 import mixin from '@/components/mixin.js'
 import store from '../store'
+import { mapState } from 'vuex'
 
 export default {
   data: function () {
@@ -61,7 +62,7 @@ export default {
   //  random関数
   mixins: [mixin],
 
-  //  action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
+  //  要素の変化に関わらず、action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
   methods: {
     increment () {
       store.commit('increment')
@@ -72,17 +73,17 @@ export default {
     sttflgon () {
       store.commit('sttflgon')
     },
-    okflg () {
-      store.commit('okflg')
+    okflgon () {
+      store.commit('okflgon')
     },
-    ngflg () {
-      store.commit('ngflg')
+    ngflgon () {
+      store.commit('ngflgon')
     },
-    answer (e) {
-      store.commit('answer', store.state.answer + e)
+    answerexist (e) {
+      store.commit('answerexist', this.answer + e)
     },
     answernon (e) {
-      store.commit('answer', '')
+      store.commit('answerexist', '')
     },
     aopen () {
       store.commit('aopen')
@@ -93,23 +94,25 @@ export default {
 
     edit (e) {
       //  this.answer = this.answer + e
-      this.answer(e)
+      this.answerexist(e)
     },
 
     result () {
       var chk
+      //  edit()押せないように
       this.aclose()
       if (this.kigou[this.random2] === '+') {
         chk = this.num_arr1[this.random1] + this.num_arr2[this.random1_2]
-        console.log(chk, parseInt(store.state.answer))
+        console.log(chk, parseInt(this.answer))
       } else {
         chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
       }
-      if (parseInt(store.state.answer) === (Math.abs(chk))) {
-        this.okflg()
+      if (parseInt(this.answer) === (Math.abs(chk))) {
+        //  正解flg
+        this.okflgon()
         this.next()
       } else {
-        this.ngflg()
+        this.ngflgon()
         this.NGnext()
       }
     },
@@ -122,11 +125,11 @@ export default {
         setTimeout(function () { this.question = '' }.bind(this), 500)
         setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 800)
         setTimeout(function () { this.question = '' }.bind(this), 1300)
+        setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 1600)
         setTimeout(function () {
-          this.comment = this.comment_arr[this.random2]
+          this.comment = ''
           this.aopen()
-        }.bind(this), 1600)
-        setTimeout(function () { this.comment = '' }.bind(this), 2200)
+        }.bind(this), 2200)
         //  document.getElementById('enter').style.pointerEvents = 'auto'
       } else {}
     },
@@ -145,11 +148,11 @@ export default {
       setTimeout(function () { this.question = '' }.bind(this), 1100)
       setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 1400)
       setTimeout(function () { this.question = '' }.bind(this), 1900)
+      setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 2200)
       setTimeout(function () {
-        this.comment = this.comment_arr[this.random2]
+        this.comment = ''
         this.aopen()
-      }.bind(this), 2200)
-      setTimeout(function () { this.comment = '' }.bind(this), 2800)
+      }.bind(this), 2800)
     },
 
     NGnext () {
@@ -163,17 +166,17 @@ export default {
       setTimeout(function () { this.comment = '' }.bind(this), 300)
       setTimeout(function () {
         this.question = this.num_arr1[this.random1]
-        this.okflg()
+        this.okflgon()
         //  document.getElementById('question').style.color = 'black'
       }.bind(this), 600)
       setTimeout(function () { this.question = '' }.bind(this), 1100)
       setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 1400)
       setTimeout(function () { this.question = '' }.bind(this), 1900)
+      setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 2200)
       setTimeout(function () {
-        this.comment = this.comment_arr[this.random2]
+        this.comment = ''
         this.aopen()
-      }.bind(this), 2200)
-      setTimeout(function () { this.comment = '' }.bind(this), 2800)
+      }.bind(this), 2800)
     },
 
     reload () { location.reload() }
@@ -182,44 +185,55 @@ export default {
   },
 
   computed: {
+
+    /* mapState内では、state === this.$store.state となる
+    count1: state => state.count,
+    'count1'は`state => return state.count` と同じ意味になる
+    computedの値（つまり、computed: ここのこと）には、オブジェクト
+    が入る必要がある。そのため、mapState(['hello', 'world']) はエラーとなる。
+    オブジェクトがネストした状態になってしまうから
+    */
+    ...mapState(['open', 'flg', 'endflg', 'okflg', 'answer']),
+
     getendflg () {
       return store.getters.getendflg
     },
 
     classObjA: function () {
       return {
-        //  canpoint: this.$store.state.flg && !this.$store.state.endflg,
-        notpoint: !this.$store.state.flg || this.$store.state.endflg,
-        textwhite: this.$store.state.okflg,
-        textred: !this.$store.state.okflg
-        //  green: this.$store.state.okflg,
-        //  red: !this.$store.state.okflg
+        //  canpoint: this.flg && !this.endflg,
+        notpoint: !this.flg || this.endflg,
+        textwhite: this.okflg,
+        textred: !this.okflg
+        //  green: this.okflg,
+        //  red: !this.okflg
       }
     },
 
     classObjB: function () {
       return {
-        //  canlook: this.$store.state.flg && !this.$store.state.endflg,
-        notlook: !this.$store.state.flg || this.$store.state.endflg,
-        textblack: this.$store.state.okflg,
-        textred: !this.$store.state.okflg
+        //  canlook: this.flg && !this.endflg,
+        notlook: !this.flg || this.endflg,
+        textblack: this.okflg,
+        textred: !this.okflg
       }
     },
 
     classObjC: function () {
       return {
-        //  canlook: this.$store.state.flg && !this.$store.state.endflg,
-        notlook: !this.$store.state.flg || this.$store.state.endflg
+        //  canlook: this.flg && !this.endflg,
+        notlook: !this.flg || this.endflg
       }
     },
 
     classObjD: function () {
       return {
-        textwhite: this.$store.state.okflg,
-        textred: !this.$store.state.okflg,
-        notpoint: !this.$store.state.open
+        textwhite: this.okflg,
+        textred: !this.okflg,
+        notpoint: !this.open
       }
     }
+
   },
 
   watch: {
@@ -234,5 +248,106 @@ export default {
 
 </script>
 <style scoped>
+button {
+    display: inline-block;
+    color: #fff;
+    background-color: #42b983;
+    border-color: #2e6da4;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width:80px;
+    margin:10px;
+}
 
+button[disabled] {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+
+.btn_all {
+position: fixed;
+bottom: 1%;
+left: 50%;
+transform: translate(-50%, 0%);
+}
+
+.key_all
+{
+text-align: center; /*align centerは親要素に設定する*/
+position: fixed;
+bottom: 6%;
+left: 50%;
+transform: translate(-50%, 0%);
+width:330px;
+z-index: 10000
+}
+
+.key
+{
+display:inline;
+width:100px;
+margin: 5px 5px;
+padding: 15px;
+z-index: 100;
+}
+
+.zero
+{
+margin-left:-215px
+}
+
+.enter
+{
+display:inline;
+width:200px;
+padding: 25px 0px 25px 0px;
+margin:10px 0px 20px 0px;
+z-index: 100;
+}
+
+.qa
+{
+  position: fixed;
+    top: 23%;
+  right: calc(50% - 100px);
+display:block;
+font-size: 60px;
+width:200px;
+height:100px;
+margin:0px 0px;
+text-align: center;
+z-index: 101;
+}
+
+.comment
+{
+  position: fixed;
+  top: 25%;
+  right: calc(50% - 100px);
+display:block;
+font-size: 35px;
+width:200px;
+height:100px;
+margin:0px 0px;
+text-align: center;
+z-index: 101;
+}
 </style>

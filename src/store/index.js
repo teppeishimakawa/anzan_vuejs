@@ -41,17 +41,17 @@ export default new Vuex.Store({
     endflgon (state) {
       state.endflg = true
     },
-    okflg (state) {
+    okflgon (state) {
       state.okflg = true
     },
-    ngflg (state) {
+    ngflgon (state) {
       state.okflg = false
     },
     //  入力したい状態が元ファイルの関数の返り値なので第二引数利用
     setId (state, param) {
       state.intervalID = param
     },
-    answer (state, param) {
+    answerexist (state, param) {
       state.answer = param
     },
     aopen (state) {

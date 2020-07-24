@@ -1,7 +1,7 @@
 <!--startShowing (),stopShowing ()の実行指示,変数cntは外部から取得-->
 <template>
   <!--子のhtmlコンポーネントをnest-->
-  <div id="time">{{time}}</div>
+  <div>{{time}}</div>
 </template>
 <script>
 //  import mixin from '@/components/mixin.js'
@@ -69,7 +69,7 @@ export default {
       return store.getters.getsttflg
     }
   },
-
+  //  sttflg:on検知でthis.startShowing()開始
   watch: {
     getsttflg (num, old) {
       console.log('watch', num)
@@ -81,4 +81,9 @@ export default {
 
 </script>
 <style scoped>
+
+div
+{
+position: fixed;top: 15%; right:5%;  width:200px;height:70px;text-align:right;font-size: 15px;
+}
 </style>

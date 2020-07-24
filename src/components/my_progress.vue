@@ -27,7 +27,7 @@ export default {
       return store.getters.getsttflg
     }
   },
-
+  //  sttflg:onで変数intervalIDにsetInterval(this.updateProgress, 300)を代入
   watch: {
     getsttflg (num, old) {
       console.log('watch', num)

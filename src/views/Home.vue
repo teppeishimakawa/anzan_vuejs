@@ -32,5 +32,57 @@ export default {
 
 </script>
 <style>
+/*
+.canlook
+{
+visibility: visible;
+}
 
+.canpoint
+{
+pointer-events: auto;
+}
+*/
+.notlook
+{
+visibility: hidden;
+}
+
+.notpoint
+{
+pointer-events: none;
+}
+
+.red
+{
+transition: filter 0s;
+}
+
+.green
+{
+transition: filter 0s;
+}
+
+.red:active {
+    filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+}
+
+.green:active {
+    filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+}
+
+.textred
+{
+color:#ff6347
+}
+
+.textblack
+{
+color:black
+}
+
+.textwhite
+{
+color:white
+}
 </style>
