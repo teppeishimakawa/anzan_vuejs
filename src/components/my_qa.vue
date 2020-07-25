@@ -41,6 +41,7 @@
 <script>
 import mixin from '@/components/mixin.js'
 import store from '../store'
+// this.$store.stateを略して呼べるようにするため
 import { mapState } from 'vuex'
 
 export default {
@@ -62,7 +63,7 @@ export default {
   //  random関数
   mixins: [mixin],
 
-  //  要素の変化に関わらず、action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
+  //  要素変化に関わらず、action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
   methods: {
     increment () {
       store.commit('increment')
@@ -95,6 +96,7 @@ export default {
     edit (e) {
       //  this.answer = this.answer + e
       this.answerexist(e)
+      this.comment = ''
     },
 
     result () {
@@ -118,18 +120,18 @@ export default {
     },
 
     click: function click () {
-      if (!store.state.flg) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は、それぞれに「.bind(this)」をつける必要あり
+      if (!store.state.flg) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は「.bind(this)」つける必要あり
         //  sttflgon検知でstartshowing(),updateprogress()開始
         this.sttflgon()
         this.question = this.num_arr1[this.random1]
         setTimeout(function () { this.question = '' }.bind(this), 500)
         setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 800)
         setTimeout(function () { this.question = '' }.bind(this), 1300)
-        setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 1600)
         setTimeout(function () {
-          this.comment = ''
+          this.comment = this.comment_arr[this.random2]
           this.aopen()
-        }.bind(this), 2200)
+        }.bind(this), 1600)
+        setTimeout(function () { this.comment = '' }.bind(this), 2200)
         //  document.getElementById('enter').style.pointerEvents = 'auto'
       } else {}
     },
@@ -148,11 +150,11 @@ export default {
       setTimeout(function () { this.question = '' }.bind(this), 1100)
       setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 1400)
       setTimeout(function () { this.question = '' }.bind(this), 1900)
-      setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 2200)
       setTimeout(function () {
-        this.comment = ''
+        this.comment = this.comment_arr[this.random2]
         this.aopen()
-      }.bind(this), 2800)
+      }.bind(this), 2200)
+      setTimeout(function () { this.comment = '' }.bind(this), 2800)
     },
 
     NGnext () {
@@ -172,11 +174,11 @@ export default {
       setTimeout(function () { this.question = '' }.bind(this), 1100)
       setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 1400)
       setTimeout(function () { this.question = '' }.bind(this), 1900)
-      setTimeout(function () { this.comment = this.comment_arr[this.random2] }.bind(this), 2200)
       setTimeout(function () {
-        this.comment = ''
+        this.comment = this.comment_arr[this.random2]
         this.aopen()
-      }.bind(this), 2800)
+      }.bind(this), 2200)
+      setTimeout(function () { this.comment = '' }.bind(this), 2800)
     },
 
     reload () { location.reload() }

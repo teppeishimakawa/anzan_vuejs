@@ -52,12 +52,8 @@ export default {
     endChkBase () {
       this.stopShowing()
       //  document.getElementById("time").innerHTML="0:00";
-      this.ngflg()
       //  document.getElementById('score').style.color = 'red'
       clearInterval(store.state.intervalID)
-    },
-    ngflg () {
-      store.commit('ngflg')
     },
     endflgon () {
       store.commit('endflgon')

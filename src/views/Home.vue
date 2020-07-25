@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="title">フラッシュ暗算 5回正解して！</div>
+    <div>フラッシュ暗算 5回正解して！</div>
       <my-progress></my-progress>
       <my-counter></my-counter>
     <br>
@@ -22,7 +22,7 @@ import myQa from '@/components/my_qa.vue'
 export default {
   name: 'Home',
   components: {
-    //  html要素名:コンポーネント名の書き方もok
+    //  html要素名:コンポーネント名の書き方でもok
     myProgress,
     myCounter,
     myQa,

@@ -30,9 +30,4 @@
   color: #42b983;
 }
 
-#score
-{
-position: fixed;bottom: 7%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
-}
-
 </style>

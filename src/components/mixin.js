@@ -1,4 +1,3 @@
-//  親子関係にするには親のtemplateに子compいれる
 
 var mixin = {
   methods: {

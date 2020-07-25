@@ -1,6 +1,6 @@
 <!--startShowing (),stopShowing ()の実行指示,変数cntは外部から取得-->
 <template>
-   <div id="score" v-html="score" :class="classObjB"></div>
+   <div v-html="score" :class="classObjB"></div>
 </template>
 <script>
 
@@ -12,7 +12,7 @@ export default {
       score: ''
     }
   },
-
+  // watch用
   computed: {
     getcnt () {
       return store.getters.getcnt
@@ -38,4 +38,8 @@ export default {
 
 </script>
 <style scoped>
+div
+{
+position: fixed;bottom: 7%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
+}
 </style>
