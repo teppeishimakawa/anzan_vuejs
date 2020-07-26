@@ -4,6 +4,7 @@
 <script>
 
 import store from '../store'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   data: function () {
@@ -12,19 +13,20 @@ export default {
     }
   },
 
-  methods: {
-    updateProgress () {
-      //  console.log(store.state.cnt)
-      this.val++
-      if (this.val === 100) { clearInterval(store.state.intervalID) }
-    },
-    setId () {
-      store.commit('setId', setInterval(this.updateProgress, 300))
-    }
-  },
   computed: {
     getsttflg () {
       return store.getters.getsttflg
+    },
+    ...mapState(['intervalID'])
+  },
+
+  methods: {
+    ...mapMutations(['setId']),
+
+    updateProgress () {
+      //  console.log(store.state.cnt)
+      this.val++
+      if (this.val === 100) { clearInterval(this.intervalID) }
     }
   },
   //  sttflg:onで変数intervalIDにsetInterval(this.updateProgress, 300)を代入
@@ -33,7 +35,8 @@ export default {
       console.log('watch', num)
       this.val = 0
       //  300msおきにプログレスバー更新。30秒で100%。storeの値は参照だけでなくjsから直変更、代入もできるがcommit推奨
-      this.setId()
+      //  store.commit('setId', setInterval(this.updateProgress, 300))
+      this.setId(setInterval(this.updateProgress, 300))
       //  store.state.intervalID = setInterval(this.updateProgress, 300)
     }
   }

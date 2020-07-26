@@ -6,6 +6,7 @@
 <script>
 //  import mixin from '@/components/mixin.js'
 import store from '../store'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   // cunsom要素をmixin
@@ -20,7 +21,23 @@ export default {
     }
   },
 
+  computed: {
+    getsttflg () {
+      return store.getters.getsttflg
+    },
+    ...mapState(['cnt', 'intervalID'])
+  },
+  //  sttflg:on検知でthis.startShowing()開始
+  watch: {
+    getsttflg (num, old) {
+      console.log('watch', num)
+      this.startShowing()
+    }
+  },
+
   methods: {
+    ...mapMutations(['endflgon']),
+
     showPassage () {
       var msg
       this.PassSec++
@@ -40,7 +57,8 @@ export default {
     },
 
     endChk () {
-      if ((this.PassSec / 100) >= this.sec || store.state.cnt === this.num) {
+      if ((this.PassSec / 100) >= this.sec || this.cnt === this.num) {
+        //  store.commit('endflgon')
         this.endflgon()
         this.endChkBase()
         //  ///////mixin///////////////////////////
@@ -53,23 +71,7 @@ export default {
       this.stopShowing()
       //  document.getElementById("time").innerHTML="0:00";
       //  document.getElementById('score').style.color = 'red'
-      clearInterval(store.state.intervalID)
-    },
-    endflgon () {
-      store.commit('endflgon')
-    }
-  },
-
-  computed: {
-    getsttflg () {
-      return store.getters.getsttflg
-    }
-  },
-  //  sttflg:on検知でthis.startShowing()開始
-  watch: {
-    getsttflg (num, old) {
-      console.log('watch', num)
-      this.startShowing()
+      clearInterval(this.intervalID)
     }
   }
 

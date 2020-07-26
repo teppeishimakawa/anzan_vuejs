@@ -7,7 +7,7 @@ export default new Vuex.Store({
   //  変数
   state: {
     cnt: 0,
-    flg: false,
+    sttflg: false,
     endflg: false,
     okflg: true,
     intervalID: 0,
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   // getters:storeの複数stateを使って計算した結果を取得をするもの
   getters: {
     getsttflg: function (state) {
-      return state.flg
+      return state.sttflg
     },
     getendflg: function (state) {
       return state.endflg
@@ -36,7 +36,7 @@ export default new Vuex.Store({
       state.cnt--
     },
     sttflgon (state) {
-      state.flg = true
+      state.sttflg = true
     },
     endflgon (state) {
       state.endflg = true
@@ -54,6 +54,7 @@ export default new Vuex.Store({
     answerexist (state, param) {
       state.answer = param
     },
+    // 回答受け付け
     aopen (state) {
       state.open = true
     },

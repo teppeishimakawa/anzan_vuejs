@@ -5,6 +5,7 @@
 <script>
 
 import store from '../store'
+import { mapState } from 'vuex'
 
 export default {
   data: function () {
@@ -14,6 +15,8 @@ export default {
   },
   // watch用
   computed: {
+    ...mapState(['sttflg', 'endflg', 'okflg', 'cnt']),
+
     getcnt () {
       return store.getters.getcnt
     },
@@ -21,9 +24,9 @@ export default {
     classObjB: function () {
       return {
         //  canlook: this.$store.state.flg && !this.$store.state.endflg,
-        notlook: !this.$store.state.flg || this.$store.state.endflg,
-        textblack: this.$store.state.okflg,
-        textred: !this.$store.state.okflg
+        notlook: !this.sttflg || this.endflg,
+        textblack: this.okflg,
+        textred: !this.okflg
       }
     }
   },
@@ -31,7 +34,7 @@ export default {
   watch: {
     getcnt (num, old) {
       console.log('watch', num)
-      this.score = store.state.cnt
+      this.score = this.cnt
     }
   }
 }

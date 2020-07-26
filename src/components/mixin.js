@@ -1,4 +1,4 @@
-
+//  random関数
 var mixin = {
   methods: {
     random (num) {
