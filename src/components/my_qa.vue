@@ -1,60 +1,27 @@
 <!---->
 <template>
   <div>
-      <div class="qa" :class="classObjC">{{question}} </div>
-      <div class="comment" v-html="comment" :class="classObjB"></div>
-      <div class="qa" :class="classObjB">{{this.answer}}</div>
-
+    <img class="qa" alt='' :src='question' :class="classObjC" />
+    <div class="comment" v-html="comment" :class="classObjB"></div>
     <div class="key_all">
-      <div>
-        <button class="key green" @click="edit(7)" @scroll.passive="onScroll" value="7" :class="classObjD">7</button>
-        <button class="key green" @click="edit(8)" @scroll.passive="onScroll" value="8" :class="classObjD">8</button>
-        <button class="key green" @click="edit(9)" @scroll.passive="onScroll" value="9" :class="classObjD">9</button>
-      </div>
-      <div>
-        <button class="key green" @click="edit(4)" @scroll.passive="onScroll" value="4" :class="classObjD">4</button>
-        <button class="key green" @click="edit(5)" @scroll.passive="onScroll" value="5" :class="classObjD">5</button>
-        <button class="key green" @click="edit(6)" @scroll.passive="onScroll" value="6" :class="classObjD">6</button>
-      </div>
-      <div>
-        <button class="key green" @click="edit(1)" @scroll.passive="onScroll" value="1" :class="classObjD">1</button>
-        <button class="key green" @click="edit(2)" @scroll.passive="onScroll" value="2" :class="classObjD">2</button>
-        <button class="key green" @click="edit(3)" @scroll.passive="onScroll" value="3" :class="classObjD">3</button>
-      </div>
-      <div>
-        <button class="key green zero" @click="edit(0)" @scroll.passive="onScroll" value="0" :class="classObjD">0</button>
-      </div>
-      <div>
-        <button class="enter" @click="result" @scroll.passive="onScroll" :class="classObjA">enter</button>
-      </div>
-  </div>
-
-    <div class='btn_all'>
-      <button class='green' :disabled="this.sttflg" @click="start">start</button>
-      <button class='green' @click="reload">reload</button>
+      <img class="enter" @click="enterGu" @scroll.passive="onScroll" :class="classObjAgu" src='/img/gu.png' />
+      <img class="enter" @click="enterCho" @scroll.passive="onScroll" :class="classObjAcho" src='/img/cho.png' />
+      <img class="enter" @click="enterPa" @scroll.passive="onScroll" :class="classObjApa" src='/img/pa.png'>
     </div>
-
-</div>
-
+  </div>
 </template>
-
 <script>
 import mixin from '@/components/mixin.js'
-import store from '../store'
+// import store from '../store'
 // this.$store.stateを略して呼べるようにするため
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   data: function () {
     return {
-      question: '',
-      comment: '',
-      num_arr1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      num_arr2: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      comment_arr: ['&nbsp;&nbsp;足して！', '&nbsp;&nbsp;足して！', '&nbsp;&nbsp;掛けて！'],
-      kigou: ['+', '+', '*'],
-      random1: this.random(10),
-      random1_2: this.random(10),
+      num_arr1: ['/img/gu.png', '/img/cho.png', '/img/pa.png'],
+      comment_arr: ['&nbsp;&nbsp;&nbsp;勝って！', '&nbsp;&nbsp;&nbsp;負けて！', '&nbsp;&nbsp;引き分けて！'],
+      random1: this.random(3),
       random2: this.random(3)
     }
   },
@@ -71,20 +38,37 @@ export default {
     オブジェクトがネストした状態になってしまうから。
     this.$store.state.xxxxをthis.xxxで呼べるようにする
     */
-    ...mapState(['open', 'sttflg', 'endflg', 'okflg', 'answer']),
+    ...mapState(['sttflg', 'endflg', 'okflg', 'answer', 'comment', 'question']),
+    ...mapGetters(['getsttflg', 'getendflg']),
 
-    getendflg () {
-      return store.getters.getendflg
-    },
-
-    classObjA: function () {
+    classObjAgu: function () {
       return {
         //  canpoint: this.flg && !this.endflg,
         notpoint: !this.sttflg || this.endflg,
-        textwhite: this.okflg,
-        textred: !this.okflg
-        //  green: this.okflg,
-        //  red: !this.okflg
+        green: (this.random2 === 0 && this.random1 === 1) || (this.random2 === 1 && this.random1 === 2) || (this.random2 === 2 && this.random1 === 0),
+        red: (this.random2 === 0 && this.random1 === 2) || (this.random2 === 1 && this.random1 === 0) || (this.random2 === 2 && this.random1 === 1) || (this.random2 === 0 && this.random1 === 0) || (this.random2 === 1 && this.random1 === 1) || (this.random2 === 2 && this.random1 === 2)
+        //  red: !this.okflg,
+        //  green: this.okflg
+      }
+    },
+    classObjAcho: function () {
+      return {
+        //  canpoint: this.flg && !this.endflg,
+        notpoint: !this.sttflg || this.endflg,
+        green: (this.random2 === 0 && this.random1 === 2) || (this.random2 === 1 && this.random1 === 0) || (this.random2 === 2 && this.random1 === 1),
+        red: (this.random2 === 0 && this.random1 === 1) || (this.random2 === 1 && this.random1 === 2) || (this.random2 === 2 && this.random1 === 0) || (this.random2 === 0 && this.random1 === 0) || (this.random2 === 1 && this.random1 === 1) || (this.random2 === 2 && this.random1 === 2)
+        //  red: !this.okflg,
+        //  green: this.okflg
+      }
+    },
+    classObjApa: function () {
+      return {
+        //  canpoint: this.flg && !this.endflg,
+        notpoint: !this.sttflg || this.endflg,
+        red: (this.random2 === 0 && this.random1 === 1) || (this.random2 === 1 && this.random1 === 2) || (this.random2 === 2 && this.random1 === 0) || (this.random2 === 0 && this.random1 === 2) || (this.random2 === 1 && this.random1 === 0) || (this.random2 === 2 && this.random1 === 1),
+        green: (this.random2 === 0 && this.random1 === 0) || (this.random2 === 1 && this.random1 === 1) || (this.random2 === 2 && this.random1 === 2)
+        //  red: !this.okflg,
+        //  green: this.okflg
       }
     },
 
@@ -102,19 +86,18 @@ export default {
         //  canlook: this.flg && !this.endflg,
         notlook: !this.sttflg || this.endflg
       }
-    },
-
-    classObjD: function () {
-      return {
-        textwhite: this.okflg,
-        textred: !this.okflg,
-        notpoint: !this.open
-      }
     }
 
   },
 
   watch: {
+    getsttflg (num, old) {
+      console.log('watch', num)
+      this.questionchg(this.num_arr1[this.random1])
+      console.log(this.num_arr1[this.random1])
+      this.commentchg(this.comment_arr[this.random2])
+    },
+
     getendflg (num, old) {
       console.log('watch', num)
     }
@@ -122,112 +105,92 @@ export default {
 
   //  要素変化に関わらず、action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
   methods: {
-  // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
-    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'ngflgon', 'sttflgon', 'increment', 'decrement']),
+    // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
+    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'ngflgon', 'increment', 'decrement', 'commentchg', 'questionchg']),
 
-    edit (e) {
-      //  this.answer = this.answer + e
-      //  store.commit('answerexist', this.answer + e)
-      this.answerexist(this.answer + e)
-      this.comment = ''
-    },
-
-    result () {
-      var chk
-      //  edit()押せないように
+    enterGu () {
+      //  edit()押せないようにaclose()発動
       //  store.commit('aclose')
       this.aclose()
-      if (this.kigou[this.random2] === '+') {
-        chk = this.num_arr1[this.random1] + this.num_arr2[this.random1_2]
-        console.log(chk, parseInt(this.answer))
-      } else {
-        chk = this.num_arr1[this.random1] * this.num_arr2[this.random1_2]
-      }
-      if (parseInt(this.answer) === (Math.abs(chk))) {
-        //  正解flg
-        //  store.commit('okflgon')
-        this.okflgon()
-        this.next()
-      } else {
-        //  store.commit('ngflgon')
-        this.ngflgon()
-        this.NGnext()
-      }
+      this.result(1, 2, 0)
     },
 
-    start: function start () {
-      if (!this.sttflg) { //  Vue.jsのmethodでsetInterval、setTimeoutを使う場合は「.bind(this)」つける必要あり
-        //  sttflgon検知でstartshowing(),updateprogress()開始
-        //  store.commit('sttflgon')
-        this.sttflgon()
-        this.question = this.num_arr1[this.random1]
-        this.quiz(500)
-        /*
-        setTimeout(function () { this.question = '' }.bind(this), 500)
-        setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), 800)
-        setTimeout(function () { this.question = '' }.bind(this), 1300)
-        setTimeout(function () {
-          this.comment = this.comment_arr[this.random2]
-          store.commit('aopen')
-        }.bind(this), 1600)
-        setTimeout(function () { this.comment = '' }.bind(this), 2200)
-        */
-        //  document.getElementById('enter').style.pointerEvents = 'auto'
-      } else {}
+    enterCho () {
+      //  edit()押せないようにaclose()発動
+      //  store.commit('aclose')
+      this.aclose()
+      this.result(2, 0, 1)
+    },
+
+    enterPa () {
+      //  edit()押せないようにaclose()発動
+      //  store.commit('aclose')
+      this.aclose()
+      this.result(0, 1, 2)
     },
 
     next () {
-      //  store.commit('increment')
       this.increment()
-      this.random1 = this.random(10)
-      this.random1_2 = this.random(10)
-      this.random2 = this.random(3)
-      //  空白300ms,文字表示500ms
-      this.comment = 'ok!'
+      this.doRandom('ok')
       //  store.commit('answerexist', '')
       this.answerexist('')
       //  this.answer = ''
-      setTimeout(function () { this.comment = '' }.bind(this), 300)
-      setTimeout(function () { this.question = this.num_arr1[this.random1] }.bind(this), 600)
-      this.quiz(1100)
+      setTimeout(function () {
+        this.commentchg('')
+        this.questionchg('')
+      }.bind(this), 300)
+      setTimeout(function () { this.questionchg(this.num_arr1[this.random1]) }.bind(this), 600)
+      this.quiz(700)
     },
 
     NGnext () {
       //  store.commit('decrement')
       this.decrement()
-      this.random1 = this.random(10)
-      this.random1_2 = this.random(10)
-      this.random2 = this.random(3)
-      this.comment = 'NG...'
-      //  this.answer = ''
+      this.doRandom('NG...')
       //  store.commit('answerexist', '')
       this.answerexist('')
-      setTimeout(function () { this.comment = '' }.bind(this), 300)
+      //  setTimeout(function () { this.commentchg() }.bind(this), 300)
       setTimeout(function () {
-        this.question = this.num_arr1[this.random1]
+        this.questionchg(this.num_arr1[this.random1])
         //  store.commit('okflgon')
         this.okflgon()
         //  document.getElementById('question').style.color = 'black'
       }.bind(this), 600)
-      this.quiz(1100)
+      this.quiz(700)
     },
 
-    reload () { location.reload() },
-
     quiz (a) {
-      setTimeout(function () { this.question = '' }.bind(this), a)
-      setTimeout(function () { this.question = this.num_arr2[this.random1_2] }.bind(this), a + 300)
-      setTimeout(function () { this.question = '' }.bind(this), a + 800)
+      //  setTimeout(function () { this.questionchg('') }.bind(this), a)
       setTimeout(function () {
-        this.comment = this.comment_arr[this.random2]
+        this.commentchg(this.comment_arr[this.random2])
         //  store.commit('aopen')
         this.aopen()
-      }.bind(this), a + 1100)
-      setTimeout(function () { this.comment = '' }.bind(this), a + 1700)
-      //  document.getElementById('enter').style.pointerEvents = 'auto'
-    }
+      }.bind(this), a)
+      //  setTimeout(function () { this.commentchg('') }.bind(this), a + 1700)
+      //  document.getElementById('enter').style.pointerEvents = 'auto
+    },
 
-  //  methods
+    doRandom (a) {
+      this.random1 = this.random(3)
+      this.random2 = this.random(3)
+      //  空白300ms,文字表示500ms
+      this.commentchg(a)
+    },
+
+    result (a, b, c) {
+      //  random2:勝ち:0、負け:1、あいこ:2
+      //  gu出し：勝って cho,負けてpa,引き分けてgu勝ちパターンa,b,c: 1 2 0
+      //  cho出し：勝って pa, 負けて gu, 引き分けて cho 勝ちパターンa,b,c: 2 0 1
+      //  pa出し：勝って gu, 負けて cho, 引き分けて pa  勝ちパターンa,b,c: 0 1 2
+      if ((this.random2 === 0 && this.random1 === a) || (this.random2 === 1 && this.random1 === b) || (this.random2 === 2 && this.random1 === c)) {
+        this.okflgon()
+        this.next()
+      } else {
+        this.ngflgon()
+        this.NGnext()
+      }
+    }
+    //  methods
   }
   //  methods:{ edit:function(e){this.question=e}},
   //  export default
@@ -236,105 +199,100 @@ export default {
 </script>
 <style scoped>
 button {
-    display: inline-block;
-    color: #fff;
-    background-color: #42b983;
-    border-color: #2e6da4;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    width:80px;
-    margin:10px;
+  display: inline-block;
+  color: #fff;
+  background-color: #42b983;
+  border-color: #2e6da4;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: 80px;
+  margin: 10px;
 }
 
 button[disabled] {
-    cursor: not-allowed;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    opacity: .65;
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
 }
 
-.btn_all {
-position: fixed;
-bottom: 1%;
-left: 50%;
-transform: translate(-50%, 0%);
+img{
+  border-style:none;
+}
+
+.key {
+  display: inline;
+  width: 100px;
+  margin: 5px 5px;
+  padding: 15px;
+  z-index: 100;
+}
+
+.zero {
+  margin-left: -215px
+}
+
+.enter {
+  display: block;
+  width: 85px;
+  padding: 5px 0px 5px 0px;
+  margin: 5px 0px 5px 0px;
+  z-index: 100;
+  /*align centerは親要素に設定する*/
+  transform: translate(0%, 0%);
 }
 
 .key_all
 {
 text-align: center; /*align centerは親要素に設定する*/
 position: fixed;
-bottom: 6%;
+bottom: 8%;
 left: 50%;
 transform: translate(-50%, 0%);
-width:330px;
+width:85px;
 z-index: 10000
 }
 
-.key
-{
-display:inline;
-width:100px;
-margin: 5px 5px;
-padding: 15px;
-z-index: 100;
-}
-
-.zero
-{
-margin-left:-215px
-}
-
-.enter
-{
-display:inline;
-width:200px;
-padding: 25px 0px 25px 0px;
-margin:10px 0px 20px 0px;
-z-index: 100;
-}
-
-.qa
-{
+.qa {
   position: fixed;
-    top: 23%;
-  right: calc(50% - 100px);
-display:block;
-font-size: 60px;
-width:200px;
-height:100px;
-margin:0px 0px;
-text-align: center;
-z-index: 101;
+  top: 20%;
+  right: calc(50% - 50px);
+  display: block;
+  font-size: 60px;
+  width: 100px;
+  height: 100px;
+  margin: 0px 0px;
+  text-align: center;
+  z-index: 101;
 }
 
-.comment
-{
+.comment {
   position: fixed;
-  top: 25%;
+  top: 38%;
   right: calc(50% - 100px);
-display:block;
-font-size: 35px;
-width:200px;
-height:100px;
-margin:0px 0px;
-text-align: center;
-z-index: 101;
+  display: block;
+  font-size: 20px;
+  width: 200px;
+  height: 100px;
+  margin: 0px 0px;
+  text-align: center;
+  z-index: 101;
 }
+
 </style>
