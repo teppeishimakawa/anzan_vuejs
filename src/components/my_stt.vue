@@ -1,8 +1,8 @@
 <!--start,reloadボタン-->
 <template>
     <div>
-      <button class="green" :disabled="this.sttflg" @click="this.sttflgon">start</button>
-      <button class="green" @click="reload">reload</button>
+      <button class='green' :disabled="this.sttflg" @click="this.sttflgon">start</button>
+      <button class='green' @click="reload">reload</button>
     </div>
 </template>
 
@@ -63,8 +63,8 @@ button[disabled] {
 }
 
 div {
+width:250px;
 position: fixed;
-width: 200px;
 bottom: 1%;
 left: 50%;
 transform: translate(-50%, 0%);

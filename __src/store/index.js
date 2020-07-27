@@ -9,7 +9,8 @@ export default new Vuex.Store({
     cnt: 0,
     sttflg: false,
     endflg: false,
-    okflg: true,
+    okflg: false,
+    ngflg: false,
     intervalID: 0,
     answer: '',
     comment: '',
@@ -46,8 +47,14 @@ export default new Vuex.Store({
     okflgon (state) {
       state.okflg = true
     },
-    ngflgon (state) {
+    okflgoff (state) {
       state.okflg = false
+    },
+    ngflgon (state) {
+      state.ngflg = true
+    },
+    ngflgoff (state) {
+      state.ngflg = false
     },
     //  入力したい状態が元ファイルの関数の返り値なので第二引数利用
     setId (state, param) {

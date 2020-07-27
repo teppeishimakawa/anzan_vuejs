@@ -9,6 +9,15 @@
 </template>
 
 <style>
+body, div, p,img
+   {
+    user-select: none; /* CSS3 */
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Safari、Chromeなど */
+    -ms-user-select: none; /* IE10かららしい */
+    -webkit-touch-callout:none; /* リンク長押しのポップアップを無効化 */
+    }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

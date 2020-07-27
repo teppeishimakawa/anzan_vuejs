@@ -15,7 +15,7 @@ export default {
   },
   // watch用
   computed: {
-    ...mapState(['sttflg', 'endflg', 'okflg', 'cnt']),
+    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'cnt']),
 
     getcnt () {
       return store.getters.getcnt
@@ -25,8 +25,8 @@ export default {
       return {
         //  canlook: this.$store.state.flg && !this.$store.state.endflg,
         notlook: !this.sttflg || this.endflg,
-        textblack: this.okflg,
-        textred: !this.okflg
+        textgreen: this.okflg,
+        textred: this.ngflg
       }
     }
   },

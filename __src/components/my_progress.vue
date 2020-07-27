@@ -46,7 +46,7 @@ export default {
 <style scoped>
 progress {
   position: fixed;
-  top: 13.2%;
+  top: 3%;
   right: 4%;
   width: 100px;
   height: 40px;

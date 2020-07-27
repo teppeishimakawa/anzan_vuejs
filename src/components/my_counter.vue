@@ -17,7 +17,7 @@ export default {
       PassageID: '',
       time: '',
       sec: 30,
-      num: 10
+      num: 5
     }
   },
 

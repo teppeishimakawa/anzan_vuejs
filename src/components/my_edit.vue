@@ -2,25 +2,26 @@
 <template>
   <div>
       <div class="qa" :class="classObjB">{{this.answer}}</div>
-
+<!--//連続で高速ボタン押しした時の反応良くするために{passive: true}超重要！-->
     <div class="key_all">
       <div>
-        <button class="key green" @click="edit(7)" @scroll.passive="onScroll" :class="classObjD">7</button>
-        <button class="key green" @click="edit(8)" @scroll.passive="onScroll" :class="classObjD">8</button>
-        <button class="key green" @click="edit(9)" @scroll.passive="onScroll" :class="classObjD">9</button>
+        <!--連続で高速ボタン押しした時の反応良くするために@click.passive="edit(7)"の記述とbodyのontouchstart=""消去、超重要-->
+        <button class="key green" @click.passive="edit(7)" :class="classObjD">7</button>
+        <button class="key green" @click.passive="edit(8)" :class="classObjD">8</button>
+        <button class="key green" @click.passive="edit(9)" :class="classObjD">9</button>
       </div>
       <div>
-        <button class="key green" @click="edit(4)" @scroll.passive="onScroll" :class="classObjD">4</button>
-        <button class="key green" @click="edit(5)" @scroll.passive="onScroll" :class="classObjD">5</button>
-        <button class="key green" @click="edit(6)" @scroll.passive="onScroll" :class="classObjD">6</button>
+        <button class="key green" @click.passive="edit(4)" :class="classObjD">4</button>
+        <button class="key green" @click.passive="edit(5)" :class="classObjD">5</button>
+        <button class="key green" @click.passive="edit(6)" :class="classObjD">6</button>
       </div>
       <div>
-        <button class="key green" @click="edit(1)" @scroll.passive="onScroll" :class="classObjD">1</button>
-        <button class="key green" @click="edit(2)" @scroll.passive="onScroll" :class="classObjD">2</button>
-        <button class="key green" @click="edit(3)" @scroll.passive="onScroll" :class="classObjD">3</button>
+        <button class="key green" @click.passive="edit(1)" :class="classObjD">1</button>
+        <button class="key green" @click.passive="edit(2)" :class="classObjD">2</button>
+        <button class="key green" @click.passive="edit(3)" :class="classObjD">3</button>
       </div>
       <div>
-        <button class="key green zero" @click="edit(0)" @scroll.passive="onScroll" :class="classObjD">0</button>
+        <button class="key green zero" @click.passive="edit(0)" :class="classObjD">0</button>
       </div>
   </div>
 </div>
@@ -31,21 +32,21 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['open', 'sttflg', 'endflg', 'okflg', 'answer', 'comment']),
+    ...mapState(['open', 'sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment']),
 
     classObjB: function () {
       return {
         //  canlook: this.flg && !this.endflg,
         notlook: !this.sttflg || this.endflg,
         textblack: this.okflg,
-        textred: !this.okflg
+        textred: this.ngflg
       }
     },
 
     classObjD: function () {
       return {
         textwhite: this.okflg,
-        textred: !this.okflg,
+        textred: this.ngflg,
         notpoint: !this.open
       }
     }
