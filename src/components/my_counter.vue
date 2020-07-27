@@ -82,6 +82,6 @@ export default {
 
 div
 {
-position: fixed;top: 15%; right:5%;  width:200px;height:70px;text-align:right;font-size: 15px;
+position: fixed;top: 4.5%; right:5%;  width:200px;height:70px;text-align:right;font-size: 15px;
 }
 </style>

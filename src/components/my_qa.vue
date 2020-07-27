@@ -251,10 +251,10 @@ img{
 }
 
 .enter {
-  display: block;
-  width: 85px;
+  display: inline;
+  width: 90px;
   padding: 5px 0px 5px 0px;
-  margin: 5px 0px 5px 0px;
+  margin: 5px 10px 5px 10px;
   z-index: 100;
   /*align centerは親要素に設定する*/
   transform: translate(0%, 0%);
@@ -264,29 +264,27 @@ img{
 {
 text-align: center; /*align centerは親要素に設定する*/
 position: fixed;
-bottom: 8%;
+bottom: 25%;
 left: 50%;
 transform: translate(-50%, 0%);
-width:85px;
+width:350px;
 z-index: 10000
 }
 
+/*何故かposition:fixにするとsafariで色が狂う*/
 .qa {
-  position: fixed;
-  top: 20%;
-  right: calc(50% - 50px);
-  display: block;
-  font-size: 60px;
-  width: 100px;
-  height: 100px;
-  margin: 0px 0px;
-  text-align: center;
-  z-index: 101;
+  display: inline;
+  width: 110px;
+  padding: 5px 0px 5px 0px;
+  margin: 10px 10px 70px 10px;
+  z-index: 100;
+  /*align centerは親要素に設定する*/
+  transform: translate(0%, 0%);
 }
 
 .comment {
   position: fixed;
-  top: 38%;
+  top: 45%;
   right: calc(50% - 100px);
   display: block;
   font-size: 20px;
