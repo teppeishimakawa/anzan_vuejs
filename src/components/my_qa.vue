@@ -38,12 +38,12 @@ export default {
     オブジェクトがネストした状態になってしまうから。
     this.$store.state.xxxxをthis.xxxで呼べるようにする
     */
-    ...mapState(['sttflg', 'endflg', 'okflg', 'answer', 'comment', 'question']),
+    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question']),
     ...mapGetters(['getsttflg', 'getendflg']),
 
     classObjAgu: function () {
       return {
-        //  canpoint: this.flg && !this.endflg,
+        //  randam関数決まった時点で各ボタンが押された際の色class付与している
         notpoint: !this.sttflg || this.endflg,
         green: (this.random2 === 0 && this.random1 === 1) || (this.random2 === 1 && this.random1 === 2) || (this.random2 === 2 && this.random1 === 0),
         red: (this.random2 === 0 && this.random1 === 2) || (this.random2 === 1 && this.random1 === 0) || (this.random2 === 2 && this.random1 === 1) || (this.random2 === 0 && this.random1 === 0) || (this.random2 === 1 && this.random1 === 1) || (this.random2 === 2 && this.random1 === 2)
@@ -76,15 +76,17 @@ export default {
       return {
         //  canlook: this.flg && !this.endflg,
         notlook: !this.sttflg || this.endflg,
-        textblack: this.okflg,
-        textred: !this.okflg
+        textgreen: this.okflg,
+        textred: this.ngflg
       }
     },
 
     classObjC: function () {
       return {
         //  canlook: this.flg && !this.endflg,
-        notlook: !this.sttflg || this.endflg
+        notlook: !this.sttflg || this.endflg,
+        redSudden: this.ngflg,
+        greenSudden: this.okflg
       }
     }
 
@@ -106,7 +108,7 @@ export default {
   //  要素変化に関わらず、action起こした時は必ず結果返す必要あるのでcomputedでなくmethod
   methods: {
     // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
-    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'ngflgon', 'increment', 'decrement', 'commentchg', 'questionchg']),
+    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'okflgoff', 'ngflgon', 'ngflgoff', 'increment', 'decrement', 'commentchg', 'questionchg']),
 
     enterGu () {
       //  edit()押せないようにaclose()発動
@@ -132,29 +134,29 @@ export default {
     next () {
       this.increment()
       this.doRandom('ok')
-      //  store.commit('answerexist', '')
       this.answerexist('')
-      //  this.answer = ''
       setTimeout(function () {
         this.commentchg('')
         this.questionchg('')
       }.bind(this), 300)
-      setTimeout(function () { this.questionchg(this.num_arr1[this.random1]) }.bind(this), 600)
+      setTimeout(function () {
+        this.questionchg(this.num_arr1[this.random1])
+        this.okflgoff()
+      }.bind(this), 600)
       this.quiz(700)
     },
 
     NGnext () {
-      //  store.commit('decrement')
       this.decrement()
       this.doRandom('NG...')
-      //  store.commit('answerexist', '')
       this.answerexist('')
-      //  setTimeout(function () { this.commentchg() }.bind(this), 300)
+      setTimeout(function () {
+        this.commentchg('')
+        this.questionchg('')
+      }.bind(this), 300)
       setTimeout(function () {
         this.questionchg(this.num_arr1[this.random1])
-        //  store.commit('okflgon')
-        this.okflgon()
-        //  document.getElementById('question').style.color = 'black'
+        this.ngflgoff()
       }.bind(this), 600)
       this.quiz(700)
     },

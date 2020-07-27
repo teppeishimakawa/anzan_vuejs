@@ -68,9 +68,22 @@ transition: filter 0s;
     filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
 }
 
+.redSudden{
+    filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+}
+
+.greenSudden{
+    filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+}
+
 .textred
 {
 color:#ff6347
+}
+
+.textgreen
+{
+color:#2e8b57
 }
 
 .textblack
