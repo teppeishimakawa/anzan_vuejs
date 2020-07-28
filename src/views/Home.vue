@@ -76,6 +76,11 @@ transition: filter 0s;
 color:#ff6347
 }
 
+.textgreen
+{
+color:green
+}
+
 .textblack
 {
 color:black

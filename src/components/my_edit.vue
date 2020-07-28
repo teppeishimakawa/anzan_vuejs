@@ -5,23 +5,24 @@
 <!--//連続で高速ボタン押しした時の反応良くするために{passive: true}超重要！-->
     <div class="key_all">
       <div>
-        <!--連続で高速ボタン押しした時の反応良くするために@click.passive="edit(7)"の記述とbodyのontouchstart=""消去、超重要-->
-        <button class="key green" @click.passive="edit(7)" :class="classObjD">7</button>
-        <button class="key green" @click.passive="edit(8)" :class="classObjD">8</button>
-        <button class="key green" @click.passive="edit(9)" :class="classObjD">9</button>
+        <!--連続で高速ボタン押しした時の反応良くするために@click.passive="edit(7)"の記述とbodyのontouchstart=""消去、超重要
+          *vuetify実装すると今度は2度入力になるのでpassive外す必要あり-->
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(7)" :class="classObjD">7</v-btn>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(8)" :class="classObjD">8</v-btn>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(9)" :class="classObjD">9</v-btn>
       </div>
       <div>
-        <button class="key green" @click.passive="edit(4)" :class="classObjD">4</button>
-        <button class="key green" @click.passive="edit(5)" :class="classObjD">5</button>
-        <button class="key green" @click.passive="edit(6)" :class="classObjD">6</button>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(4)" :class="classObjD">4</v-btn>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(5)" :class="classObjD">5</v-btn>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(6)" :class="classObjD">6</v-btn>
       </div>
       <div>
-        <button class="key green" @click.passive="edit(1)" :class="classObjD">1</button>
-        <button class="key green" @click.passive="edit(2)" :class="classObjD">2</button>
-        <button class="key green" @click.passive="edit(3)" :class="classObjD">3</button>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(1)" :class="classObjD">1</v-btn>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(2)" :class="classObjD">2</v-btn>
+        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(3)" :class="classObjD">3</v-btn>
       </div>
       <div>
-        <button class="key green zero" @click.passive="edit(0)" :class="classObjD">0</button>
+        <v-btn color='info' large class="key green zero ma-1" @click="edit(0)" :class="classObjD">0</v-btn>
       </div>
   </div>
 </div>
@@ -37,16 +38,12 @@ export default {
     classObjB: function () {
       return {
         //  canlook: this.flg && !this.endflg,
-        notlook: !this.sttflg || this.endflg,
-        textblack: this.okflg,
-        textred: this.ngflg
+        notlook: !this.sttflg || this.endflg
       }
     },
 
     classObjD: function () {
       return {
-        textwhite: this.okflg,
-        textred: this.ngflg,
         notpoint: !this.open
       }
     }
@@ -69,45 +66,23 @@ export default {
 
 </script>
 <style scoped>
-button {
-    display: inline-block;
-    color: #fff;
-    background-color: #42b983;
-    border-color: #2e6da4;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    width:80px;
-    margin:10px;
-}
-
-button[disabled] {
-    cursor: not-allowed;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    opacity: .65;
-}
 
 .key_all
 {
-text-align: center; /*align centerは親要素に設定する*/
+text-align: center;
 position: fixed;
-bottom: 21%;
+bottom: 23%;
+left: 50%;
+transform: translate(-50%, 0%);
+width:330px;
+z-index: 10000
+}
+/*
+.key_all
+{
+text-align: center; align centerは親要素に設定する
+position: fixed;
+bottom: 25%;
 left: 50%;
 transform: translate(-50%, 0%);
 width:330px;
@@ -127,7 +102,7 @@ z-index: 100;
 {
 margin-left:-215px
 }
-
+*/
 .qa
 {
   position: fixed;
@@ -140,6 +115,11 @@ height:100px;
 margin:0px 0px;
 text-align: center;
 z-index: 101;
+}
+
+.zero
+{
+margin-left:-215px
 }
 
 </style>

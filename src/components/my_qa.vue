@@ -4,7 +4,7 @@
       <div class="qa" :class="classObjC">{{question}} </div>
       <div class="comment" v-html="comment" :class="classObjB"></div>
       <div>
-        <button class="enter" @click="enter" @scroll.passive="onScroll" :class="classObjA">enter</button>
+        <v-btn color='info' x-large class="enter" @click="enter" @scroll.passive="onScroll" :class="classObjA">enter</v-btn>
       </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
       return {
         //  canlook: this.flg && !this.endflg,
         notlook: !this.sttflg || this.endflg,
-        textblack: this.okflg,
+        textgreen: this.okflg,
         textred: this.ngflg
       }
     },
@@ -171,53 +171,6 @@ export default {
 
 </script>
 <style scoped>
-button {
-    display: inline-block;
-    color: #fff;
-    background-color: #42b983;
-    border-color: #2e6da4;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    width:80px;
-    margin:10px;
-}
-
-button[disabled] {
-    cursor: not-allowed;
-    filter: alpha(opacity=65);
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    opacity: .65;
-}
-
-.key
-{
-display:inline;
-width:100px;
-margin: 5px 5px;
-padding: 15px;
-z-index: 100;
-}
-
-.zero
-{
-margin-left:-215px
-}
 
 .enter
 {
@@ -253,11 +206,8 @@ z-index: 101;
   position: fixed;
   top: 25%;
   right: calc(50% - 100px);
-display:block;
 font-size: 35px;
 width:200px;
-height:100px;
-margin:0px 0px;
 text-align: center;
 z-index: 101;
 }

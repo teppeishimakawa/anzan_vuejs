@@ -25,7 +25,7 @@ export default {
       return {
         //  canlook: this.$store.state.flg && !this.$store.state.endflg,
         notlook: !this.sttflg || this.endflg,
-        textblack: this.okflg,
+        textgreen: this.okflg,
         textred: this.ngflg
       }
     }
