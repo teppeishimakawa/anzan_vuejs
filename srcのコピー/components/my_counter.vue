@@ -1,7 +1,7 @@
 <!--startShowing (),stopShowing ()の実行指示,変数cntは外部から取得-->
 <template>
   <!--子のhtmlコンポーネントをnest-->
-  <div></div>
+  <div>{{time}}</div>
 </template>
 <script>
 //  import mixin from '@/components/mixin.js'
@@ -15,6 +15,7 @@ export default {
     return {
       PassSec: '',
       PassageID: '',
+      time: '',
       sec: 30,
       num: 5
     }
@@ -24,7 +25,7 @@ export default {
     getsttflg () {
       return store.getters.getsttflg
     },
-    ...mapState(['cnt', 'intervalID', 'time'])
+    ...mapState(['cnt', 'intervalID'])
   },
   //  sttflg:on検知でthis.startShowing()開始
   watch: {
@@ -35,12 +36,14 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['endflgon', 'gettime']),
+    ...mapMutations(['endflgon']),
 
     showPassage () {
+      var msg
       this.PassSec++
       //  msg = 29 - (Math.floor(PassSec/100)) + ":" +  ( '00' + (100 - PassSec%100)).slice( -2 );   // 表示文作成
-      this.gettime((Math.floor(this.PassSec / 100)) + ':' + ('00' + (this.PassSec % 100)).slice(-2))
+      msg = (Math.floor(this.PassSec / 100)) + ':' + ('00' + (this.PassSec % 100)).slice(-2)
+      this.time = msg
       this.endChk()
     },
 

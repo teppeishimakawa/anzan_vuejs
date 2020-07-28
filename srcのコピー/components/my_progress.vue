@@ -1,7 +1,5 @@
 <template>
-  <div style="position: relative;width:${client.width};height:100px">
-  <v-progress-linear color="info" absolute rounded height='20' style=" top: -100%;left:calc(85% - 50px) ; width: 100px;" :value='val'><strong>{{this.time}}</strong></v-progress-linear>
- </div>
+  <progress max='100' v-bind:value='val'></progress>
 </template>
 <script>
 
@@ -19,7 +17,7 @@ export default {
     getsttflg () {
       return store.getters.getsttflg
     },
-    ...mapState(['intervalID', 'time'])
+    ...mapState(['intervalID'])
   },
 
   methods: {
