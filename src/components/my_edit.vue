@@ -7,22 +7,24 @@
       <div>
         <!--連続で高速ボタン押しした時の反応良くするために@click.passive="edit(7)"の記述とbodyのontouchstart=""消去、超重要
           *vuetify実装すると今度は2度入力になるのでpassive外す必要あり-->
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(7)" :class="classObjD">7</v-btn>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(8)" :class="classObjD">8</v-btn>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(9)" :class="classObjD">9</v-btn>
+        <!--:ripple="false"入れればボタン押したままの見た目にならず、@mouseup="isActive=false" @mouseout="isActive=false" @touchend="isActive=false"なしでmousedown,taouchstart両立可能-->
+        <button class="greena key" @mousedown.prevent="edit(7)" @touchstart.prevent="edit(7)" :class="classObjD">7</button>
+        <button class="greena key" @mousedown.prevent="edit(8)" @touchstart.prevent="edit(8)" :class="classObjD">8</button>
+        <button class="greena key" @mousedown.prevent="edit(9)" @touchstart.prevent="edit(9)" :class="classObjD">9</button>
+        <!--@pointerdown使えばクリックした際のボタンカラーが変わったままにならないが古いブラウザに対応していないためprevent処理に-->
       </div>
       <div>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(4)" :class="classObjD">4</v-btn>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(5)" :class="classObjD">5</v-btn>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(6)" :class="classObjD">6</v-btn>
+        <button class="greena key" @mousedown.prevent="edit(4)" @touchstart.prevent="edit(4)" :class="classObjD">4</button>
+        <button class="greena key" @mousedown.prevent="edit(5)" @touchstart.prevent="edit(5)" :class="classObjD">5</button>
+        <button class="greena key" @mousedown.prevent="edit(6)" @touchstart.prevent="edit(6)" :class="classObjD">6</button>
       </div>
       <div>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(1)" :class="classObjD">1</v-btn>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(2)" :class="classObjD">2</v-btn>
-        <v-btn color='info' large class="key green ma-1 mx-3" @click="edit(3)" :class="classObjD">3</v-btn>
+        <button class="greena key" @mousedown.prevent="edit(1)" @touchstart.prevent="edit(1)" :class="classObjD">1</button>
+        <button class="greena key" @mousedown.prevent="edit(2)" @touchstart.prevent="edit(2)" :class="classObjD">2</button>
+        <button class="greena key" @cmousedown.prevent="edit(3)" @touchstart.prevent="edit(3)" :class="classObjD">3</button>
       </div>
       <div>
-        <v-btn color='info' large class="key green zero ma-1" @click="edit(0)" :class="classObjD">0</v-btn>
+        <button  large class="zero greena key" @mousedown.prevent="edit(0)" @touchstart.prevent="edit(0)" :class="classObjD">0</button>
       </div>
   </div>
 </div>
@@ -32,6 +34,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+
   computed: {
     ...mapState(['open', 'sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment']),
 
@@ -44,7 +47,9 @@ export default {
 
     classObjD: function () {
       return {
-        notpoint: !this.open
+        notpoint: !this.open || this.okflg || this.ngflg,
+        greenSudden: this.okflg,
+        redSudden: this.ngflg
       }
     }
 
@@ -55,7 +60,6 @@ export default {
     ...mapMutations(['answerexist', 'commentchg']),
 
     edit (e) {
-      //  store.commit('answerexist', this.answer + e)
       this.answerexist(this.answer + e)
       this.commentchg('')
     }
@@ -66,6 +70,39 @@ export default {
 
 </script>
 <style scoped>
+button {
+    display: inline-block;
+    color: #fff;
+    background-color: #0091EA;
+    border-color: #2e6da4;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width:80px;
+
+}
+
+button[disabled] {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
 
 .key_all
 {
@@ -77,6 +114,15 @@ transform: translate(-50%, 0%);
 width:330px;
 z-index: 10000
 }
+
+.key
+{
+display:inline;
+width:90px;
+margin: 5px 10px;
+padding: 10px;
+z-index: 100;
+}
 /*
 .key_all
 {
@@ -87,15 +133,6 @@ left: 50%;
 transform: translate(-50%, 0%);
 width:330px;
 z-index: 10000
-}
-
-.key
-{
-display:inline;
-width:100px;
-margin: 5px 5px;
-padding: 15px;
-z-index: 100;
 }
 
 .zero
@@ -118,7 +155,6 @@ z-index: 101;
 
 .zero
 {
-margin-left:-215px
+transform: translate(calc(-150% + 25px), 0%);
 }
-
 </style>

@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div>フラッシュ暗算 5回正解して！</div>
+      <div>フラッシュ暗算 5回正解して！</div>
       <my-progress></my-progress>
       <my-counter></my-counter>
-
       <my-qa></my-qa>
       <my-edit></my-edit>
       <my-stt></my-stt>
@@ -55,21 +54,11 @@ visibility: hidden;
 pointer-events: none;
 }
 
-.red
-{
-transition: filter 0s;
-}
-
-.green
-{
-transition: filter 0s;
-}
-
-.red:active {
+.redSudden {
     filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
 }
 
-.green:active {
+.greenSudden {
     filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
 }
 
@@ -91,5 +80,25 @@ color:black
 .textwhite
 {
 color:white
+}
+
+.reda
+{
+transition: filter 0s;
+}
+
+.greena
+{
+transition: filter 0s;
+}
+
+.reda:active  {
+  filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+    -webkit-filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+}
+
+.greena:active  {
+  filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+    -webkit-filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
 }
 </style>

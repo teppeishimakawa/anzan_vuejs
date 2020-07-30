@@ -1,23 +1,20 @@
-<!--startShowing (),stopShowing ()の実行指示,変数cntは外部から取得-->
+<!--count start/stop,time更新-->
 <template>
-  <!--子のhtmlコンポーネントをnest-->
-  <div>{{time}}</div>
+  <div></div>
 </template>
 <script>
-//  import mixin from '@/components/mixin.js'
+
 import store from '../store'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  // cunsom要素をmixin
-  //  mixins: [mixin],
+
   data: function () {
     return {
-      PassSec: '',
       PassageID: '',
-      time: '',
+      PassSec: 0,
       sec: 30,
-      num: 10
+      num: 5
     }
   },
 
@@ -25,7 +22,7 @@ export default {
     getsttflg () {
       return store.getters.getsttflg
     },
-    ...mapState(['cnt', 'intervalID'])
+    ...mapState(['cnt', 'intervalID', 'time', 'starttime'])
   },
   //  sttflg:on検知でthis.startShowing()開始
   watch: {
@@ -36,19 +33,23 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['endflgon']),
+    ...mapMutations(['endflgon', 'gettime', 'setstarttime']),
 
     showPassage () {
-      var msg
-      this.PassSec++
+      var nowTime = new Date().getTime()
+      var diff = new Date(nowTime - this.starttime)
+      var millisec = diff.getMilliseconds()
+      var sec100 = Math.floor(millisec / 10)
+      this.PassSec = diff.getSeconds()
+
+      console.log(this.PassSec)
       //  msg = 29 - (Math.floor(PassSec/100)) + ":" +  ( '00' + (100 - PassSec%100)).slice( -2 );   // 表示文作成
-      msg = (Math.floor(this.PassSec / 100)) + ':' + ('00' + (this.PassSec % 100)).slice(-2)
-      this.time = msg
+      this.gettime(('00' + String(this.PassSec)).slice(-2) + ':' + ('00' + String(sec100)).slice(-2))
       this.endChk()
     },
 
     startShowing () {
-      this.PassSec = 0
+      this.setstarttime(new Date().getTime())
       this.PassageID = setInterval(this.showPassage, 10)
     },
 
@@ -57,7 +58,7 @@ export default {
     },
 
     endChk () {
-      if ((this.PassSec / 100) >= this.sec || this.cnt === this.num) {
+      if ((this.PassSec) >= this.sec || this.cnt === this.num) {
         //  store.commit('endflgon')
         this.endflgon()
         this.endChkBase()
@@ -79,9 +80,15 @@ export default {
 
 </script>
 <style scoped>
-
+/*
 div
 {
-position: fixed;top: 4.5%; right:5%;  width:200px;height:70px;text-align:right;font-size: 15px;
+position: fixed;
+top: 4.5%;
+right:5%;
+width:200px;
+text-align:right;
+font-size: 15px;
 }
+*/
 </style>

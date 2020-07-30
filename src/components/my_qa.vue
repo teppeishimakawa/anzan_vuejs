@@ -4,7 +4,8 @@
       <div class="qa" :class="classObjC">{{question}} </div>
       <div class="comment" v-html="comment" :class="classObjB"></div>
       <div>
-        <v-btn color='info' x-large class="enter" height="70" @click="enter" @scroll.passive="onScroll" :class="classObjA">enter</v-btn>
+        <!--@scroll.passive="onScroll"-->
+        <v-btn color='info' x-large class="enter" height="70" @click="enter" :class="classObjA">enter</v-btn>
       </div>
   </div>
 </template>
@@ -46,9 +47,9 @@ export default {
     classObjA: function () {
       return {
         //  canpoint: this.flg && !this.endflg,
-        notpoint: !this.sttflg || this.endflg,
-        textwhite: this.okflg,
-        textred: this.ngflg
+        notpoint: !this.sttflg || this.endflg
+        //  textwhite: this.okflg,
+        //  textred: this.ngflg
         //  green: this.okflg,
         //  red: !this.okflg
       }
@@ -182,7 +183,6 @@ position: fixed;
 bottom: 9.5%;
 left: 50%;
 transform: translate(-50%, 0%);
-
 }
 
 .qa

@@ -15,7 +15,9 @@ export default new Vuex.Store({
     answer: '',
     comment: '',
     question: '',
-    open: false
+    open: false,
+    time: '',
+    starttime: ''
   },
 
   // getters:storeの複数stateを使って計算した結果を取得をするもの
@@ -75,6 +77,12 @@ export default new Vuex.Store({
     },
     aclose (state) {
       state.open = false
+    },
+    gettime (state, param) {
+      state.time = param
+    },
+    setstarttime (state, param) {
+      state.starttime = param
     }
   },
 
