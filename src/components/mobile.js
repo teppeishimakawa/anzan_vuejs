@@ -1,16 +1,13 @@
-//  isMobile関数
-var mobile = {
-  methods: {
-    isMobile () {
-      function hantei () {
-        var regexp = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-        return (window.navigator.userAgent.search(regexp) !== -1)
-      }
+//mobile判定
 
-      var kekka = hantei()
-      return kekka
-    }
-  }
+
+function isMobile()
+{
+  var regexp = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+  return (window.navigator.userAgent.search(regexp) !== -1);
 }
 
-export default mobile
+//実行結果を代入しないとNG
+var mobile = isMobile();
+
+export {mobile};

@@ -42,8 +42,6 @@ export default {
       var sec100 = Math.floor(millisec / 10)
       this.PassSec = diff.getSeconds()
 
-      console.log(this.PassSec)
-      //  msg = 29 - (Math.floor(PassSec/100)) + ":" +  ( '00' + (100 - PassSec%100)).slice( -2 );   // 表示文作成
       this.gettime(('00' + String(this.PassSec)).slice(-2) + ':' + ('00' + String(sec100)).slice(-2))
       this.endChk()
     },
