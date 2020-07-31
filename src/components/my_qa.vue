@@ -3,9 +3,9 @@
   <div>
       <div class="qa" :class="classObjC">{{question}} </div>
       <div class="comment" v-html="comment" :class="classObjB"></div>
-      <div>
+      <div class='enter_wrap'>
         <!--@scroll.passive="onScroll"-->
-        <v-btn color='info' x-large class="enter" height="70" @click="enter" :class="classObjA">enter</v-btn>
+        <button class="greenBe enter" @mousedown.prevent="enter" @touchstart.prevent="enter" :class="classObjA">enter</button>
       </div>
   </div>
 </template>
@@ -47,7 +47,9 @@ export default {
     classObjA: function () {
       return {
         //  canpoint: this.flg && !this.endflg,
-        notpoint: !this.sttflg || this.endflg
+        notpoint: !this.sttflg || this.endflg,
+        greenSudden: this.okflg,
+        redSudden: this.ngflg
         //  textwhite: this.okflg,
         //  textred: this.ngflg
         //  green: this.okflg,
@@ -57,7 +59,6 @@ export default {
 
     classObjB: function () {
       return {
-        //  canlook: this.flg && !this.endflg,
         notlook: !this.sttflg || this.endflg,
         textgreen: this.okflg,
         textred: this.ngflg
@@ -172,24 +173,65 @@ export default {
 
 </script>
 <style scoped>
+button {
+    display: inline-block;
+    color: #fff;
+    background-color: #0091EA;
+    border-color: #2e6da4;
+    margin-bottom: 0;
+    font-size: 25px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width:80px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .5);
+
+}
+
+button[disabled] {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+
+.enter_wrap
+{
+text-align: center;
+position: fixed;
+bottom: 0%;
+left: 50%;
+transform: translate(-50%, -50%);
+width:330px;
+z-index: 10000
+}
 
 .enter
 {
+/*position:fixedにするとactiveのcolorがsafariでおかしくなるので.enter_wrapで包んで移動*/
 display:inline;
 width:200px;
+margin: 5px 10px;
+padding: 20px 0px;
 z-index: 100;
-text-align: center; /*align centerは親要素に設定する*/
-position: fixed;
-bottom: 9.5%;
-left: 50%;
-transform: translate(-50%, 0%);
 }
 
 .qa
 {
-  position: fixed;
-    top: 23%;
-  right: calc(50% - 100px);
+position: fixed;
+top: 23%;
+right: calc(50% - 100px);
 display:block;
 font-size: 60px;
 width:200px;
@@ -200,9 +242,9 @@ z-index: 101;
 
 .comment
 {
-  position: fixed;
-  top: 25%;
-  right: calc(50% - 100px);
+position: fixed;
+top: 25%;
+right: calc(50% - 100px);
 font-size: 35px;
 width:200px;
 text-align: center;

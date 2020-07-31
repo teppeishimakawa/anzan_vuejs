@@ -82,22 +82,22 @@ color:black
 color:white
 }
 
-.reda
+.reedBe
 {
 transition: filter 0s;
 }
 
-.greena
+.greenBe
 {
 transition: filter 0s;
 }
 
-.reda:active  {
+.redBe:active  {
   filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
     -webkit-filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
 }
 
-.greena:active  {
+.greenBe:active  {
   filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
     -webkit-filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
 }

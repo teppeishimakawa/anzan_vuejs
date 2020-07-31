@@ -8,23 +8,23 @@
         <!--連続で高速ボタン押しした時の反応良くするために@click.passive="edit(7)"の記述とbodyのontouchstart=""消去、超重要
           *vuetify実装すると今度は2度入力になるのでpassive外す必要あり-->
         <!--:ripple="false"入れればボタン押したままの見た目にならず、@mouseup="isActive=false" @mouseout="isActive=false" @touchend="isActive=false"なしでmousedown,taouchstart両立可能-->
-        <button class="greena key" @mousedown.prevent="edit(7)" @touchstart.prevent="edit(7)" :class="classObjD">7</button>
-        <button class="greena key" @mousedown.prevent="edit(8)" @touchstart.prevent="edit(8)" :class="classObjD">8</button>
-        <button class="greena key" @mousedown.prevent="edit(9)" @touchstart.prevent="edit(9)" :class="classObjD">9</button>
+        <button class="greenBe key" @mousedown.prevent="edit(7)" @touchstart.prevent="edit(7)" :class="classObjD">7</button>
+        <button class="greenBe key" @mousedown.prevent="edit(8)" @touchstart.prevent="edit(8)" :class="classObjD">8</button>
+        <button class="greenBe key" @mousedown.prevent="edit(9)" @touchstart.prevent="edit(9)" :class="classObjD">9</button>
         <!--@pointerdown使えばクリックした際のボタンカラーが変わったままにならないが古いブラウザに対応していないためprevent処理に-->
       </div>
       <div>
-        <button class="greena key" @mousedown.prevent="edit(4)" @touchstart.prevent="edit(4)" :class="classObjD">4</button>
-        <button class="greena key" @mousedown.prevent="edit(5)" @touchstart.prevent="edit(5)" :class="classObjD">5</button>
-        <button class="greena key" @mousedown.prevent="edit(6)" @touchstart.prevent="edit(6)" :class="classObjD">6</button>
+        <button class="greenBe key" @mousedown.prevent="edit(4)" @touchstart.prevent="edit(4)" :class="classObjD">4</button>
+        <button class="greenBe key" @mousedown.prevent="edit(5)" @touchstart.prevent="edit(5)" :class="classObjD">5</button>
+        <button class="greenBe key" @mousedown.prevent="edit(6)" @touchstart.prevent="edit(6)" :class="classObjD">6</button>
       </div>
       <div>
-        <button class="greena key" @mousedown.prevent="edit(1)" @touchstart.prevent="edit(1)" :class="classObjD">1</button>
-        <button class="greena key" @mousedown.prevent="edit(2)" @touchstart.prevent="edit(2)" :class="classObjD">2</button>
-        <button class="greena key" @cmousedown.prevent="edit(3)" @touchstart.prevent="edit(3)" :class="classObjD">3</button>
+        <button class="greenBe key" @mousedown.prevent="edit(1)" @touchstart.prevent="edit(1)" :class="classObjD">1</button>
+        <button class="greenBe key" @mousedown.prevent="edit(2)" @touchstart.prevent="edit(2)" :class="classObjD">2</button>
+        <button class="greenBe key" @cmousedown.prevent="edit(3)" @touchstart.prevent="edit(3)" :class="classObjD">3</button>
       </div>
       <div>
-        <button  large class="zero greena key" @mousedown.prevent="edit(0)" @touchstart.prevent="edit(0)" :class="classObjD">0</button>
+        <button  large class="zero greenBe key" @mousedown.prevent="edit(0)" @touchstart.prevent="edit(0)" :class="classObjD">0</button>
       </div>
   </div>
 </div>
@@ -93,6 +93,7 @@ button {
     border: 1px solid transparent;
     border-radius: 4px;
     width:80px;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .5);
 
 }
 
