@@ -1,4 +1,4 @@
-<!--count start/stop,time更新-->
+<!--count start/stop,time更新. timeをmy_progress.vueに渡す-->
 <template>
   <div></div>
 </template>
@@ -13,8 +13,9 @@ export default {
     return {
       PassageID: '',
       PassSec: 0,
+      //  sec:タイムアップ時間,num:クリアに必要な正解回数
       sec: 30,
-      num: 10
+      num: 5
     }
   },
 
@@ -24,10 +25,11 @@ export default {
     },
     ...mapState(['cnt', 'intervalID', 'time', 'starttime'])
   },
-  //  sttflg:on検知でthis.startShowing()開始
+
   watch: {
     getsttflg (num, old) {
       console.log('watch', num)
+      //  sttflg検知したらカウントスタート
       this.startShowing()
     }
   },
@@ -42,8 +44,6 @@ export default {
       var sec100 = Math.floor(millisec / 10)
       this.PassSec = diff.getSeconds()
 
-      console.log(this.PassSec)
-      //  msg = 29 - (Math.floor(PassSec/100)) + ":" +  ( '00' + (100 - PassSec%100)).slice( -2 );   // 表示文作成
       this.gettime(('00' + String(this.PassSec)).slice(-2) + ':' + ('00' + String(sec100)).slice(-2))
       this.endChk()
     },
@@ -62,16 +62,11 @@ export default {
         //  store.commit('endflgon')
         this.endflgon()
         this.endChkBase()
-        //  ///////mixin///////////////////////////
-        //  this.endChkCustom()
-        //  ///////////////////////////////////////
       }
     },
 
     endChkBase () {
       this.stopShowing()
-      //  document.getElementById("time").innerHTML="0:00";
-      //  document.getElementById('score').style.color = 'red'
       clearInterval(this.intervalID)
     }
   }

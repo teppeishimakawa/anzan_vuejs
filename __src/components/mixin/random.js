@@ -1,5 +1,5 @@
 //  random関数
-var mixin = {
+var random = {
   methods: {
     random (num) {
       return Math.floor(Math.random() * num)
@@ -7,4 +7,4 @@ var mixin = {
   }
 }
 
-export default mixin
+export default random

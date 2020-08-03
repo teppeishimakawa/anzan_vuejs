@@ -1,6 +1,6 @@
-<!--startShowing (),stopShowing ()の実行指示,変数cntは外部から取得-->
+<!--score表示-->
 <template>
-   <div v-html="score" :class="classObjB"></div>
+   <div :class="classObjB">{{score}}</div>
 </template>
 <script>
 
@@ -23,7 +23,6 @@ export default {
 
     classObjB: function () {
       return {
-        //  canlook: this.$store.state.flg && !this.$store.state.endflg,
         notlook: !this.sttflg || this.endflg,
         textgreen: this.okflg,
         textred: this.ngflg

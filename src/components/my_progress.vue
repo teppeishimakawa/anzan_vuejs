@@ -1,8 +1,12 @@
+<!--プログレスバー生成コンポーネント -->
 <template>
   <div>
-  <v-progress-linear color="info" absolute rounded height='20' style=" top: -400%;left:calc(85% - 40px) ; width: 80px;" :value='val'><strong>{{this.time}}</strong></v-progress-linear>
+   <v-progress-linear color="info" absolute rounded height='20' style=" top: -400%;left:calc(85% - 40px) ; width: 80px;" :value='val'>
+    <strong>{{this.time}}</strong>
+   </v-progress-linear>
  </div>
 </template>
+
 <script>
 
 import store from '../store'
@@ -26,17 +30,16 @@ export default {
     ...mapMutations(['setId']),
 
     updateProgress () {
-      //  console.log(store.state.cnt)
       this.val++
       if (this.val === 100) { clearInterval(this.intervalID) }
     }
   },
-  //  sttflg:onで変数intervalIDにsetInterval(this.updateProgress, 300)を代入
+  //  sttflg検知
   watch: {
     getsttflg (num, old) {
       console.log('watch', num)
       this.val = 0
-      //  300msおきにプログレスバー更新。30秒で100%。storeの値は参照だけでなくjsから直変更、代入もできるがcommit推奨
+      //  300msでval:1増加。storeの値は参照だけでなくjsから直setもできるがcommit推奨
       //  store.commit('setId', setInterval(this.updateProgress, 300))
       this.setId(setInterval(this.updateProgress, 300))
       //  store.state.intervalID = setInterval(this.updateProgress, 300)
