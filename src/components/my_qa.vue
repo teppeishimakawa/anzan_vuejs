@@ -7,7 +7,7 @@
         <!--@scroll.passive="onScroll"-->
         <button class="greenBe enter" @mousedown.prevent="enter" @touchstart.prevent="enter" :class="classObjA">enter</button>
       </div>
-  </div>
+ </div>
 </template>
 
 <script>
