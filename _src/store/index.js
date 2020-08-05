@@ -15,9 +15,6 @@ export default new Vuex.Store({
     answer: '',
     comment: '',
     question: '',
-    question2: '',
-    src: '',
-    src2: '',
     open: false,
     time: '',
     starttime: ''
@@ -73,15 +70,6 @@ export default new Vuex.Store({
     },
     questionchg (state, param) {
       state.question = param
-    },
-    question2chg (state, param) {
-      state.question2 = param
-    },
-    srcchg (state, param) {
-      state.src = param
-    },
-    src2chg (state, param) {
-      state.src2 = param
     },
     // 回答受け付け
     aopen (state) {

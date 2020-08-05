@@ -7,8 +7,7 @@
 </template>
 
 <script>
-//  import store from '../store'
-// this.$store.stateを略して呼べるようにするため
+
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -18,7 +17,7 @@ export default {
   },
 
   methods: {
-  // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
+
     ...mapMutations(['sttflgon']),
 
     reload () { location.reload() }

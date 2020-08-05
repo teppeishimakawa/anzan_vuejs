@@ -3,14 +3,28 @@
   <div>
     <div class="qa_wrap">
       <div style="position:fixed;top:-10vh;">
-          <span v-for="i in question" :key="i">
-            <img class="qa test" alt='' :src="i" :class="classObjC" style="width:23%;" @click="clickA"/>
-          </span>
+
+            <img class="qa" alt='' :src="question[0]" :class="classObjC" style="width:23%;" @click="clickA(question[0])"/>
+            <img class="qa" alt='' :src="question[1]" :class="classObjC" style="width:23%;" @click="clickA(question[1])"/>
+            <img class="qa" alt='' :src="question[2]" :class="classObjC" style="width:23%;" @click="clickA(question[2])"/>
+            <img class="qa" alt='' :src="question[3]" :class="classObjC" style="width:23%;" @click="clickA(question[3])"/>
+            <img class="qa" alt='' :src="question[4]" :class="classObjC" style="width:23%;" @click="clickA(question[4])"/>
+            <img class="qa" alt='' :src="question[5]" :class="classObjC" style="width:23%;" @click="clickA(question[5])"/>
+            <img class="qa" alt='' :src="question[6]" :class="classObjC" style="width:23%;" @click="clickA(question[6])"/>
+            <img class="qa" alt='' :src="question[7]" :class="classObjC" style="width:23%;" @click="clickA(question[7])"/>
+
       </div>
        <div style="position:fixed;top:25vh;">
-          <span v-for="i in question2" :key="i" >
-            <img class="qa" alt='' :src="i" :class="classObjC" style="width:23%"  @click="clickB"/>
-          </span>
+
+            <img class="qa" alt='' :src="question2[0]" :class="classObjC" style="width:23%;" @click="clickA(question2[0])"/>
+            <img class="qa" alt='' :src="question2[1]" :class="classObjC" style="width:23%;" @click="clickA(question2[1])"/>
+            <img class="qa" alt='' :src="question2[2]" :class="classObjC" style="width:23%;" @click="clickA(question2[2])"/>
+            <img class="qa" alt='' :src="question2[3]" :class="classObjC" style="width:23%;" @click="clickA(question2[3])"/>
+            <img class="qa" alt='' :src="question2[4]" :class="classObjC" style="width:23%;" @click="clickA(question2[4])"/>
+            <img class="qa" alt='' :src="question2[5]" :class="classObjC" style="width:23%;" @click="clickA(question2[5])"/>
+            <img class="qa" alt='' :src="question2[6]" :class="classObjC" style="width:23%;" @click="clickA(question2[6])"/>
+            <img class="qa" alt='' :src="question2[7]" :class="classObjC" style="width:23%;" @click="clickA(question2[7])"/>
+
       </div>
 
       <div class="comment" v-html="comment" :class="classObjB"></div>
@@ -43,6 +57,7 @@ export default {
         require('../assets/tori3.png'), require('../assets/uma.png'), require('../assets/zebla.png'),
         require('../assets/zou.png')],
       comment_arr: ['&nbsp;同じマークを見つけて！']
+
     }
   },
 
@@ -109,23 +124,17 @@ export default {
     clickA (value) {
       //  edit()押せないようにaclose()発動
       //  store.commit('aclose')
-      this.srcchg(value.target.src)
-      console.log(value.target.src)
+      this.srcchg(value)
+      console.log(value)
       this.aclose()
       this.result()
-      var span = value.currentTarget.parentNode.parentNode.childNodes
-      console.log(span)
-      for (var k = 0; k < span.length; k++) {
-        span[k].childNodes[0].style.backgroundColor = ''
-      }
-      value.target.style.backgroundColor = 'red'
     },
 
     clickB (value) {
       //  edit()押せないようにaclose()発動
       //  store.commit('aclose')
-      this.src2chg(value.target.src)
-      console.log(value.target.src)
+      this.src2chg(value)
+      console.log(value)
       this.aclose()
       this.result()
     },
@@ -282,10 +291,6 @@ z-index: 10000
 
 .greenSudden {
     filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
-}
-
-.active {
-    filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
 }
 
 </style>

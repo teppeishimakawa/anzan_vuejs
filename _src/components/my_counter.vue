@@ -15,7 +15,7 @@ export default {
       PassSec: 0,
       //  sec:タイムアップ時間,num:クリアに必要な正解回数
       sec: 30,
-      num: 10
+      num: 5
     }
   },
 
@@ -44,7 +44,6 @@ export default {
       var sec100 = Math.floor(millisec / 10)
       this.PassSec = diff.getSeconds()
 
-      //  console.log(this.PassSec)
       this.gettime(('00' + String(this.PassSec)).slice(-2) + ':' + ('00' + String(sec100)).slice(-2))
       this.endChk()
     },

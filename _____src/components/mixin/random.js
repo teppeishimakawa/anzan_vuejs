@@ -1,8 +1,8 @@
+
 //  random関数
 var random = {
   methods: {
-    makeRandom (ary) {
-      var num = ary.length
+    random (num) {
       return Math.floor(Math.random() * num)
     }
   }
