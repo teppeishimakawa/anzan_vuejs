@@ -2,18 +2,18 @@
 <template>
   <div>
     <div class="qa_wrap">
-      <div class ="question" style="position:fixed;top:-15.5vh;">
-          <span v-for="i in question" :key="i">
+      <div class ="question">
+          <span v-for="i in question" :key="i"><!--style="position:fixed;top:-12vh;"-->
             <img class="qa test" alt='' :src="i" :class="classObjC" style="width:23%;" @click="clickA"/>
           </span>
       </div>
-       <div class ="question" style="position:fixed;top:25vh;">
+          <div class="comment" v-html="comment" :class="classObjB"></div>
+       <div class ="question"><!--style="position:fixed;top:20vh;"-->
           <span v-for="i in question2" :key="i" >
             <img class="qa" alt='' :src="i" :class="classObjC" style="width:23%"  @click="clickB"/>
           </span>
       </div>
     </div>
-    <div class="comment" v-html="comment" :class="classObjB"></div>
     <div class="key_all" >
       <!--require('../assets/gu.png')されgu.pngに自動的に名前解決されるのでjs中で呼び出す時はgu.png-->
 
@@ -40,8 +40,7 @@ export default {
         require('../assets/panda.png'), require('../assets/pen.png'), require('../assets/sai.png'),
         require('../assets/tanba.png'), require('../assets/tori.png'), require('../assets/tori2.png'),
         require('../assets/tori3.png'), require('../assets/uma.png'), require('../assets/zebla.png'),
-        require('../assets/zou.png')],
-      comment_arr: ['&nbsp;同じマークを見つけて！']
+        require('../assets/zou.png')]
     }
   },
 
@@ -105,11 +104,9 @@ export default {
     ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'okflgoff', 'ngflgon', 'ngflgoff', 'increment', 'decrement', 'commentchg', 'questionchg', 'question2chg', 'srcchg', 'src2chg']),
 
     clickA (value) {
-      //  edit()押せないようにaclose()発動
       //  store.commit('aclose')
       this.srcchg(value.target.src)
       console.log(value.target.src)
-      this.aclose()
       this.result()
       var span = value.currentTarget.parentNode.parentNode.childNodes
       console.log(span)
@@ -126,7 +123,6 @@ export default {
       //  store.commit('aclose')
       this.src2chg(value.target.src)
       console.log(value.target.src)
-      this.aclose()
       this.result()
       var span = value.currentTarget.parentNode.parentNode.childNodes
       console.log(span)
@@ -144,9 +140,9 @@ export default {
       this.answerexist('')
       this.srcchg('')
       this.src2chg('')
+      this.questionchg('')
+      this.question2chg('')
       setTimeout(function () {
-        this.questionchg('')
-        this.question2chg('')
         this.commentchg('')
         this.questionchg('')
       }.bind(this), 300)
@@ -168,13 +164,13 @@ export default {
 
     NGnext () {
       this.decrement()
-      this.doRandom(' NG..')
+      this.doRandom(' NG')
       this.answerexist('')
       this.srcchg('')
       this.src2chg('')
+      this.questionchg('')
+      this.question2chg('')
       setTimeout(function () {
-        this.questionchg('')
-        this.question2chg('')
         this.commentchg('')
         this.questionchg('')
       }.bind(this), 300)
@@ -197,7 +193,6 @@ export default {
 
     quiz (a) {
       setTimeout(function () {
-        this.commentchg(this.comment_arr[this.random2])
         //  store.commit('aopen')
         this.aopen()
       }.bind(this), a)
@@ -253,12 +248,6 @@ z-index: 10000
 
 .qa_wrap
 {
-text-align: center;
-position: fixed;
-top: 35%;
-left: 50%;
-transform: translate(-50%, -50%);
-width:330px;
 z-index: 1000
 }
 
@@ -270,14 +259,19 @@ z-index: 1000
 }
 
 .question{
+width:80vw;
 background-color: #dcdcdc;
+margin-top: 10px;
+margin-bottom: 50px;
+margin-left: auto;
+margin-right: auto;
 }
 
 .comment {
-  position: absolute;
-  top: 50%;
-  left: 50% ;
-  transform: translate(-50%, -70%);
+  position: fixed;
+  top: 40vh;
+  left: 50vw ;
+  transform: translate(-50%, -50%);
   display: block;
   font-size: 120px;
   font-weight: bold;

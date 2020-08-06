@@ -1,6 +1,6 @@
 <!--score表示-->
 <template>
-   <div :class="classObjB">{{score}}</div>
+   <span :class="classObjB">{{score}}</span>
 </template>
 <script>
 
@@ -40,8 +40,10 @@ export default {
 
 </script>
 <style scoped>
-div
+span
 {
-position: fixed;bottom: 4%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
+font-size: 25px;
+z-index: 1001;
+pointer-events: none
 }
 </style>

@@ -1,7 +1,7 @@
 <!--プログレスバー生成コンポーネント -->
 <template>
   <div>
-   <v-progress-linear color="info" absolute rounded height='20' style=" top: -400%;left:calc(85% - 40px) ; width: 80px;" :value='val'>
+   <v-progress-linear color="info" absolute rounded height='20' style=" top: 0%;left:calc(80% - 40px) ; width: 80px;" :value='val'>
     <strong>{{this.time}}</strong>
    </v-progress-linear>
  </div>

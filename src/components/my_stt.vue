@@ -1,9 +1,9 @@
 <!--start,reloadボタン-->
 <template>
-    <div>
+    <span>
       <v-btn color='info' class='ma-1 px-6' :disabled="this.sttflg" @click="this.sttflgon">start</v-btn>
       <v-btn color='info' class='ma-1' @click="reload">reload</v-btn>
-    </div>
+    </span>
 </template>
 
 <script>
@@ -29,11 +29,8 @@ export default {
 <style scoped>
 
 div {
-width:250px;
-position: fixed;
-bottom: 1%;
-left: 50%;
-transform: translate(-50%, 0%);
+width:500px;
+display: inline;
 }
 
 </style>

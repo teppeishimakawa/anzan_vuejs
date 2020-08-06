@@ -1,12 +1,32 @@
 <template>
   <div>
-    <div>同じマークを見つけて！</div>
-      <my-progress></my-progress>
-      <my-counter></my-counter>
-      <my-qa></my-qa>
-      <my-stt></my-stt>
-      <my-score></my-score>
-  </div>
+
+    <div>
+    <v-app-bar dense dark color="blue-grey lighten-1" class='font-weight-bold'>
+       <v-toolbar-title>同じマークを3回見つけて！</v-toolbar-title>
+       <my-progress></my-progress>
+       <my-counter></my-counter>
+    </v-app-bar>
+    </div>
+
+    <v-content>
+      <v-container>
+        <my-qa></my-qa>
+      </v-container>
+    </v-content>
+
+<!--v-container無くしたら余計な上下マージン無くなった-->
+    <v-footer absolute dense>
+        <v-row dense>
+          <v-col cols="11">
+            <my-stt></my-stt>
+          </v-col>
+          <v-col cols="1">
+            <my-score></my-score>
+          </v-col>
+        </v-row>
+    </v-footer>
+    </div>
 </template>
 <script>
 // @ is an alias to /src
