@@ -2,19 +2,18 @@
 <template>
   <div>
     <div class="qa_wrap">
-      <div style="position:fixed;top:-10vh;">
+      <div class ="question" style="position:fixed;top:-15.5vh;">
           <span v-for="i in question" :key="i">
             <img class="qa test" alt='' :src="i" :class="classObjC" style="width:23%;" @click="clickA"/>
           </span>
       </div>
-       <div style="position:fixed;top:25vh;">
+       <div class ="question" style="position:fixed;top:25vh;">
           <span v-for="i in question2" :key="i" >
             <img class="qa" alt='' :src="i" :class="classObjC" style="width:23%"  @click="clickB"/>
           </span>
       </div>
-
-      <div class="comment" v-html="comment" :class="classObjB"></div>
     </div>
+    <div class="comment" v-html="comment" :class="classObjB"></div>
     <div class="key_all" >
       <!--require('../assets/gu.png')されgu.pngに自動的に名前解決されるのでjs中で呼び出す時はgu.png-->
 
@@ -89,8 +88,7 @@ export default {
 
       this.questionchg(this.shuffleAry((buf0).slice(0, 8)))
       this.question2chg(this.shuffleAry((buf0).slice(7, 15)))
-      //  var buf2 = (buf1).slice(7, 15)
-      //  this.question2chg(this.shuffleAry(buf2))
+
       console.log(buf1)
       console.log(buf2)
       console.log(this.question)
@@ -116,9 +114,11 @@ export default {
       var span = value.currentTarget.parentNode.parentNode.childNodes
       console.log(span)
       for (var k = 0; k < span.length; k++) {
-        span[k].childNodes[0].style.backgroundColor = ''
+        //  span[k].childNodes[0].style.backgroundColor = ''
+        span[k].childNodes[0].classList.remove('blueSudden')
       }
-      value.target.style.backgroundColor = 'red'
+      //  value.target.style.backgroundColor = 'green'
+      value.target.classList.add('blueSudden')
     },
 
     clickB (value) {
@@ -128,17 +128,25 @@ export default {
       console.log(value.target.src)
       this.aclose()
       this.result()
+      var span = value.currentTarget.parentNode.parentNode.childNodes
+      console.log(span)
+      for (var k = 0; k < span.length; k++) {
+        //  span[k].childNodes[0].style.backgroundColor = ''
+        span[k].childNodes[0].classList.remove('blueSudden')
+      }
+      //  value.target.style.backgroundColor = 'green'
+      value.target.classList.add('blueSudden')
     },
 
     next () {
       this.increment()
-      this.doRandom('ok')
+      this.doRandom('OK')
       this.answerexist('')
-      this.questionchg('')
-      this.question2chg('')
       this.srcchg('')
       this.src2chg('')
       setTimeout(function () {
+        this.questionchg('')
+        this.question2chg('')
         this.commentchg('')
         this.questionchg('')
       }.bind(this), 300)
@@ -160,13 +168,13 @@ export default {
 
     NGnext () {
       this.decrement()
-      this.doRandom('NG...')
+      this.doRandom(' NG..')
       this.answerexist('')
-      this.questionchg('')
-      this.question2chg('')
       this.srcchg('')
       this.src2chg('')
       setTimeout(function () {
+        this.questionchg('')
+        this.question2chg('')
         this.commentchg('')
         this.questionchg('')
       }.bind(this), 300)
@@ -251,7 +259,7 @@ top: 35%;
 left: 50%;
 transform: translate(-50%, -50%);
 width:330px;
-z-index: 10000
+z-index: 1000
 }
 
 /*何故かposition:fixにするとsafariで色が狂う*/
@@ -261,31 +269,40 @@ z-index: 10000
   z-index: 100;
 }
 
+.question{
+background-color: #dcdcdc;
+}
+
 .comment {
   position: absolute;
   top: 50%;
-  transform: translate(0,70%);
-  right: calc(50% - 100px);
+  left: 50% ;
+  transform: translate(-50%, -70%);
   display: block;
-  font-size: 20px;
+  font-size: 120px;
+  font-weight: bold;
   width: 200px;
   height: 100px;
   margin: 0px 0px;
   text-align: center;
-  z-index: 101;
+  z-index: 1001;
+  pointer-events: none
 }
 
 /*何故かhome.vueのsuddenは効かなかったためこちらにも。srcが定まらないからか。*/
 .redSudden {
     filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+    -webkit-filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
 }
 
 .greenSudden {
     filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+    -webkit-filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
 }
 
-.active {
-    filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+.blueSudden {
+   filter: invert(8%) sepia(99%) saturate(7044%) hue-rotate(247deg) brightness(100%) contrast(145%);
+   -webkit-filter: invert(8%) sepia(99%) saturate(7044%) hue-rotate(247deg) brightness(100%) contrast(145%);
 }
 
 </style>

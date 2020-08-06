@@ -42,6 +42,6 @@ export default {
 <style scoped>
 div
 {
-position: fixed;bottom: 7%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
+position: fixed;bottom: 4%;right:10%; width:200px;height:70px;text-align: right;font-size: 25px;
 }
 </style>
