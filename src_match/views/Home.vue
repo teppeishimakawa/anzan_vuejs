@@ -2,12 +2,42 @@
   <div>
 <!--sw,link relでのprefetchがうまくいかなかったため以下の処理でprefetch-->
     <div style="display: none;">
-     <img :src="require('../assets/btn.png')">
+     <img :src="require('../assets/ashiato.png')">
+     <img :src="require('../assets/born.png')">
+     <img :src="require('../assets/bow.png')">
+     <img :src="require('../assets/bug.png')">
+     <img :src="require('../assets/cat.png')">
+     <img :src="require('../assets/chou.png')">
+     <img :src="require('../assets/dog.png')">
+     <img :src="require('../assets/dolphin2.png')">
+     <img :src="require('../assets/dolphin.png')">
+     <img :src="require('../assets/fish.png')">
+     <img :src="require('../assets/fish2.png')">
+     <img :src="require('../assets/fish3.png')">
+     <img :src="require('../assets/fish4.png')">
+     <img :src="require('../assets/frog.png')">
+     <img :src="require('../assets/gachou.png')">
+     <img :src="require('../assets/heart.png')">
+     <img :src="require('../assets/horse.png')">
+     <img :src="require('../assets/house.png')">
+     <img :src="require('../assets/kame.png')">
+     <img :src="require('../assets/maru.png')">
+     <img :src="require('../assets/medic.png')">
+     <img :src="require('../assets/panda.png')">
+     <img :src="require('../assets/pen.png')">
+     <img :src="require('../assets/sai.png')">
+     <img :src="require('../assets/tanba.png')">
+     <img :src="require('../assets/tori.png')">
+     <img :src="require('../assets/tori2.png')">
+     <img :src="require('../assets/tori3.png')">
+     <img :src="require('../assets/uma.png')">
+     <img :src="require('../assets/zebla.png')">
+     <img :src="require('../assets/zou.png')">
     </div>
 
     <div>
     <v-app-bar dense dark color="blue-grey lighten-1" class='font-weight-bold'>
-       <v-toolbar-title>リズムに合わせて押して！</v-toolbar-title>
+       <v-toolbar-title>同じマークを3回見つけて！</v-toolbar-title>
        <my-progress></my-progress>
        <my-counter></my-counter>
     </v-app-bar>
@@ -15,8 +45,7 @@
 
     <v-main>
       <v-container>
-        <my-btn></my-btn>
-        <my-param></my-param>
+        <my-qa></my-qa>
       </v-container>
     </v-main>
 
@@ -38,10 +67,8 @@
 import myProgress from '@/components/my_progress.vue'
 import myCounter from '@/components/my_counter.vue'
 import myScore from '@/components/my_score.vue'
+import myQa from '@/components/my_qa.vue'
 import myStt from '@/components/my_stt.vue'
-
-import myBtn from '@/components/my_btn.vue'
-import myParam from '@/components/my_param.vue'
 
 export default {
   name: 'Home',
@@ -49,10 +76,9 @@ export default {
     //  html要素名:コンポーネント名の書き方でもok
     myProgress,
     myCounter,
+    myQa,
     myStt,
-    myScore,
-    myBtn,
-    myParam
+    myScore
   }
 }
 

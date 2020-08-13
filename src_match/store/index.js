@@ -11,15 +11,16 @@ export default new Vuex.Store({
     endflg: false,
     okflg: false,
     ngflg: false,
+    intervalID: 0,
+    answer: '',
+    comment: '',
+    question: '',
+    question2: '',
     src: '',
     src2: '',
     open: false,
     time: '',
-    starttime: '',
-    bpm: 20,
-    bufferSource: '',
-    ctx: '',
-    bufdata: ''
+    starttime: ''
   },
 
   // getters:storeの複数stateを使って計算した結果を取得をするもの
@@ -32,9 +33,6 @@ export default new Vuex.Store({
     },
     getcnt: function (state) {
       return state.cnt
-    },
-    getbpm: function (state) {
-      return state.bpm
     }
   },
   //  mutations:変数の値を変える関数。commitで実行
@@ -97,21 +95,6 @@ export default new Vuex.Store({
     },
     setstarttime (state, param) {
       state.starttime = param
-    },
-    setcnt (state, param) {
-      state.cnt = param
-    },
-    setbpm (state, param) {
-      state.bpm = param
-    },
-    setctx (state, param) {
-      state.ctx = param
-    },
-    setdata (state, param) {
-      state.bufdata = param
-    },
-    setbuf (state, param) {
-      state.bufferSource = param
     }
   },
 

@@ -4,7 +4,7 @@
     <div class="qa_wrap">
       <div class ="question">
           <span v-for="i in question" :key="i"><!--style="position:fixed;top:-12vh;"-->
-            <img class="qa test" alt='' :src="i" :class="classObjC" style="width:23%;" @click="clickA"/>
+            <img class="qa" alt='' :src="i" :class="classObjC" style="width:23%;" @click="clickA"/>
           </span>
       </div>
           <div class="comment" v-html="comment" :class="classObjB"></div>
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="key_all" >
-      <!--require('../assets/gu.png')されgu.pngに自動的に名前解決されるのでjs中で呼び出す時はgu.png-->
+      <!--require('../assets/gu.png')されgu.pngに自動的に名前解決されるのでjs中で呼び出す時はgu.pngでokの時もある?-->
 
     </div>
   </div>
@@ -23,7 +23,7 @@
 <script>
 import shuffle from '@/components/mixin/shuffle.js'
 // import store from '../store'
-// this.$store.stateを略して呼べるようにするため
+// vuexはthis.$store.stateを略して呼べるようにするため
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
@@ -44,7 +44,7 @@ export default {
     }
   },
 
-  //  random関数
+  //  shuffle関数
   mixins: [shuffle],
 
   computed: {
@@ -80,8 +80,9 @@ export default {
   watch: {
     getsttflg (num, old) {
       console.log('watch', num)
-      //  31要素をshuffleしbuf1にだいn
+      //  31要素をshuffleしbuf0に代入
       var buf0 = this.shuffleAry(this.num_arr1)
+      //  1要素だけ重複させる
       var buf1 = (buf0).slice(0, 8)
       var buf2 = (buf0).slice(7, 15)
 

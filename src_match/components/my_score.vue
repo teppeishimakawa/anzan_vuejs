@@ -1,8 +1,9 @@
 <!--score表示-->
 <template>
-  <span :class="classObjB">{{score}}</span>
+   <span :class="classObjB">{{score}}</span>
 </template>
 <script>
+
 import store from '../store'
 import { mapState } from 'vuex'
 
@@ -22,7 +23,7 @@ export default {
 
     classObjB: function () {
       return {
-        notlook: !this.sttflg,
+        notlook: !this.sttflg || this.endflg,
         textgreen: this.okflg,
         textred: this.ngflg
       }
@@ -32,21 +33,17 @@ export default {
   watch: {
     getcnt (num, old) {
       console.log('watch', num)
-      if (this.cnt < 0) {
-        this.score = 0 + '点!'
-      } else {
-        this.score = this.cnt + '点!'
-      }
+      this.score = this.cnt
     }
   }
 }
 
 </script>
 <style scoped>
-span {
-  font-size: 25px;
-  z-index: 1001;
-  pointer-events: none
+span
+{
+font-size: 25px;
+z-index: 1001;
+pointer-events: none
 }
-
 </style>

@@ -10,6 +10,7 @@
     <title>anzan</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+    <!--link rel="preload" href="<%= require('@/assets/ashiato.png') %>" type="image/png"-->
 </head>
 
 <body oncontextmenu='return false;' oncopy='return false;'>
@@ -17,5 +18,20 @@
     	スマホで :hover 時のアニメーションを有効にするにはontouchstart=""必須!-->
     <div id="app"></div>
 </body>
+
+<script>
+/*  ///service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js', { scope: '/' }).then(() => {
+      console.log('登録成功');
+    },() => {
+      console.log('登録失敗');
+    });
+  });
+}
+
+//  /////////////*/
+</script>
 
 </html>
