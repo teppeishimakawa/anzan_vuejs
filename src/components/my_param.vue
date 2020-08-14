@@ -1,13 +1,10 @@
-<!--問題表示、指令コメント表示、回答ボタン表示-->
+<!--bpm設定、コメント表示-->
 <template>
   <div>
-    <div class="qa_wrap">
-      <div class="question">
         <label>bpm:</label>
         <input type="text" v-model="bpm">
+        <br>
         <span :class="classObjE">{{this.comment}}</span>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -23,26 +20,24 @@ export default {
       def: [],
       def_total: 0,
       defdef: 0,
-      nowTime: [],
-
-      ctx: '',
-      xml: '',
-      data: ''
+      nowTime: []
     }
   },
 
   computed: {
 
-    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question', 'question2', 'src', 'src2', 'bpm', 'comment', 'goodflg']),
+    ...mapState(['sttflg', 'endflg', 'comment', 'bpm', 'comment', 'goodflg', 'superflg']),
     ...mapGetters(['getsttflg', 'getendflg', 'getbpm']),
 
     classObjE: function () {
       return {
         notlook: !this.sttflg || this.endflg,
         redSudden: !this.goodflg,
-        greenSudden: this.goodflg
+        greenSudden: this.goodflg,
+        blueSudden: this.superflg
       }
     },
+    //  入力値をvuexに反映させるための対処
     bpm: {
       get () {
         return this.$store.state.bpm
@@ -55,18 +50,17 @@ export default {
 
   watch: {
     getsttflg (num, old) {
-      console.log('watch', num)
-      //  31要素をshuffleしbuf0に代入
+      //  console.log('watch', num)
     },
 
     getendflg (num, old) {
-      console.log('watch', num)
+      //  console.log('watch', num)
     }
   },
 
   methods: {
     // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
-    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'okflgoff', 'ngflgon', 'ngflgoff', 'increment', 'decrement', 'commentchg', 'questionchg', 'question2chg', 'srcchg', 'src2chg', 'setbpm'])
+    ...mapMutations(['commentchg', 'setbpm'])
 
   } //  methods
 } //  export default
@@ -75,7 +69,7 @@ export default {
 <style scoped>
 
 span{
-font-size: 60px;
+font-size: 25px;
 font-weight: bold;
 }
 </style>

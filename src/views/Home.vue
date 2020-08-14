@@ -1,18 +1,18 @@
 <template>
   <div>
-<!--sw,link relでのprefetchがうまくいかなかったため以下の処理でprefetch-->
     <div style="display: none;">
      <img :src="require('../assets/btn.png')">
     </div>
 
     <div>
     <v-app-bar dense dark color="blue-grey lighten-1" class='font-weight-bold'>
-       <v-toolbar-title>リズムに合わせて押して！</v-toolbar-title>
+       <v-toolbar-title>3秒間隔でタップ！</v-toolbar-title>
+       <v-spacer></v-spacer>
        <my-progress></my-progress>
        <my-counter></my-counter>
     </v-app-bar>
     </div>
-
+  <br>
     <v-main>
       <v-container>
         <my-btn></my-btn>
@@ -23,10 +23,10 @@
 <!--v-container無くしたら余計な上下マージン無くなった-->
     <v-footer absolute dense>
         <v-row dense>
-          <v-col cols="11">
+          <v-col cols="9">
             <my-stt></my-stt>
           </v-col>
-          <v-col cols="1">
+          <v-col cols="3">
             <my-score></my-score>
           </v-col>
         </v-row>
@@ -89,6 +89,11 @@ color:#ff6347
 color:green
 }
 
+.textblue
+{
+color:blue
+}
+
 .textblack
 {
 color:black
@@ -121,10 +126,17 @@ transition: filter 0s;
 
 .redSudden {
     filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
+    -webkit-filter: invert(15%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(95%) contrast(112%);
 }
 
 .greenSudden {
     filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+    -webkit-filter: invert(17%) sepia(91%) saturate(7085%) hue-rotate(128deg) brightness(100%) contrast(106%);
+}
+
+.blueSudden {
+   filter: invert(8%) sepia(99%) saturate(7044%) hue-rotate(247deg) brightness(100%) contrast(145%);
+   -webkit-filter: invert(8%) sepia(99%) saturate(7044%) hue-rotate(247deg) brightness(100%) contrast(145%);
 }
 
 </style>

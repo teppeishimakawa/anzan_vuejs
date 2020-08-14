@@ -14,7 +14,7 @@ export default {
   },
   // watch用
   computed: {
-    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'cnt', 'btncnt', 'bpm', 'sec']),
+    ...mapState(['sttflg', 'endflg', 'cnt', 'btncnt', 'bpm', 'sec', 'goodflg', 'superflg']),
     ...mapGetters(['getendflg']),
 
     getcnt () {
@@ -24,8 +24,9 @@ export default {
     classObjB: function () {
       return {
         notlook: !this.sttflg,
-        textgreen: this.okflg,
-        textred: this.ngflg
+        textgreen: this.goodflg,
+        textred: !this.goodflg,
+        textblue: this.superflg
       }
     }
   },
@@ -46,8 +47,11 @@ export default {
     },
     getendflg (num, old) {
       console.log('watch', num)
-      console.log(this.btncnt, parseInt(this.bpm), this.sec)
-      this.setcnt(this.cnt - Math.abs((this.btncnt - parseInt(this.bpm) * this.sec / 60) * 10))
+      //  btncntは0から開始なので1引く
+      console.log(this.btncnt - 1, parseInt(this.bpm), this.sec)
+      //  最後に、規定カウントよりタップ多くても少なくても減点。以下ならcalcTapは10回タップ想定
+      var calcTap = parseInt(this.bpm) * this.sec / 60
+      this.setcnt(this.cnt - Math.abs((this.btncnt - 1 - calcTap) * 100 / calcTap))
       if (this.cnt < 0) {
         this.score = 0 + '点'
       } else {

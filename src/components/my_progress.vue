@@ -37,7 +37,7 @@ export default {
   //  sttflg検知
   watch: {
     getsttflg (num, old) {
-      console.log('watch', num)
+      //  console.log('watch', num)
       this.val = 0
       //  300msでval:1増加。storeの値は参照だけでなくjsから直setもできるがcommit推奨
       //  store.commit('setId', setInterval(this.updateProgress, 300))
@@ -56,7 +56,7 @@ height:20px;
 
 .progress{
 top: 0%;
-left:calc(80% - 40px);
+/*left:calc(80% - 40px);*/
 width: 80px;
 }
 

@@ -9,20 +9,15 @@ export default new Vuex.Store({
     cnt: 0,
     sttflg: false,
     endflg: false,
-    okflg: false,
-    ngflg: false,
-    src: '',
-    src2: '',
-    open: false,
     time: '',
     starttime: '',
     bpm: 20,
-    bufferSource: '',
     ctx: '',
     bufdata: '',
     btncnt: 0,
     sec: 30,
     goodflg: true,
+    superflg: false,
     comment: ''
   },
 
@@ -34,6 +29,7 @@ export default new Vuex.Store({
     getendflg: function (state) {
       return state.endflg
     },
+    //  得点
     getcnt: function (state) {
       return state.cnt
     },
@@ -43,55 +39,16 @@ export default new Vuex.Store({
   },
   //  mutations:変数の値を変える関数。commitで実行
   mutations: {
-    increment (state) {
-      state.cnt++
-    },
-    decrement (state) {
-      state.cnt--
-    },
     sttflgon (state) {
       state.sttflg = true
     },
     endflgon (state) {
       state.endflg = true
     },
-    okflgon (state) {
-      state.okflg = true
-    },
-    okflgoff (state) {
-      state.okflg = false
-    },
-    ngflgon (state) {
-      state.ngflg = true
-    },
-    ngflgoff (state) {
-      state.ngflg = false
-    },
     //  入力したい状態が元ファイルの関数の返り値なので第二引数利用
+    //  timer ID
     setId (state, param) {
       state.intervalID = param
-    },
-    answerexist (state, param) {
-      state.answer = param
-    },
-    questionchg (state, param) {
-      state.question = param
-    },
-    question2chg (state, param) {
-      state.question2 = param
-    },
-    srcchg (state, param) {
-      state.src = param
-    },
-    src2chg (state, param) {
-      state.src2 = param
-    },
-    // 回答受け付け
-    aopen (state) {
-      state.open = true
-    },
-    aclose (state) {
-      state.open = false
     },
     gettime (state, param) {
       state.time = param
@@ -122,6 +79,12 @@ export default new Vuex.Store({
     },
     goodflgoff (state) {
       state.goodflg = false
+    },
+    superflgon (state) {
+      state.superflg = true
+    },
+    superflgoff (state) {
+      state.superflg = false
     },
     commentchg (state, param) {
       state.comment = param

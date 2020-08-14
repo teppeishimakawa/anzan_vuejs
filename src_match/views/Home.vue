@@ -38,6 +38,7 @@
     <div>
     <v-app-bar dense dark color="blue-grey lighten-1" class='font-weight-bold'>
        <v-toolbar-title>同じマークを3回見つけて！</v-toolbar-title>
+       <v-spacer></v-spacer>
        <my-progress></my-progress>
        <my-counter></my-counter>
     </v-app-bar>

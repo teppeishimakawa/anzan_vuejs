@@ -1,11 +1,7 @@
-<!--問題表示、指令コメント表示、回答ボタン表示-->
+<!--ボタンタップ、スコア判定、音声再生-->
 <template>
   <div>
-    <div class="qa_wrap">
-      <div class="question">
-        <img class="qa btnn" alt='' :src="require('../assets/btn.png')" :class="classObjC" @mousedown.prevent="click" @touchstart.prevent="click" :disabled="this.endflg" />
-      </div>
-    </div>
+        <img class="btnn" alt='' :src="require('../assets/btn.png')" :class="classObjC" @mousedown.prevent="click" @touchstart.prevent="click" :disabled="this.endflg" />
   </div>
 </template>
 <script>
@@ -27,14 +23,12 @@ export default {
 
   computed: {
 
-    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question', 'question2', 'src', 'src2', 'bpm', 'duration', 'sttflg', 'cnt', 'bufferSource', 'ctx', 'bufdata', 'btncnt', 'goodflg']),
+    ...mapState(['sttflg', 'endflg', 'bpm', 'duration', 'cnt', 'bufferSource', 'ctx', 'bufdata', 'btncnt', 'goodflg']),
     ...mapGetters(['getsttflg', 'getendflg']),
 
     classObjC: function () {
       return {
-        notpoint: this.endflg,
-        redSudden: this.ngflg,
-        greenSudden: this.okflg
+        notpoint: this.endflg
       }
     }
 
@@ -53,34 +47,40 @@ export default {
 
   methods: {
     // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
-    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'okflgoff', 'ngflgon', 'ngflgoff', 'increment', 'decrement', 'commentchg', 'questionchg', 'question2chg', 'srcchg', 'src2chg', 'sttflgon', 'setcnt', 'setbuf', 'setctx', 'setdata', 'incrementbtncnt', 'goodflgon', 'goodflgoff']),
+    ...mapMutations(['commentchg', 'sttflgon', 'setcnt', 'setbuf', 'setctx', 'setdata', 'incrementbtncnt', 'goodflgon', 'goodflgoff', 'superflgon', 'superflgoff']),
 
     click () {
-      //  console.log(parseInt(this.bpm))
-      //  console.log(this.cnt)
+      //  そのままthisを利用するとNGだったので以下代入対処
       var comp = this.ctx
       var bufferSource = comp.createBufferSource()
-      //  console.log(bufferSource)
-      //  console.log(this.bufdata)
+
       bufferSource.buffer = this.bufdata
       bufferSource.connect(comp.destination)
       bufferSource.start(0)
-      try { navigator.vibrate(5000) } catch (e) {}
+
+      try {
+        //  iosでは動かず
+        window.navigator.vibrate(200)
+        window.navigator.webkitVibrate(200)
+        window.navigator.mozVibrate(200)
+      } catch (e) {}
+
       this.sttflgon()
       if (isNaN(this.bpm)) { alert('please enter bpm !!') }
 
       //  ボタンpushのたびにその時の時刻を配列に格納
       this.nowTime.push(new Date().getTime())
+
       if (this.btncnt > 0) {
-        //  タップの間隔を配列に格納
+        //  2回目以降、タップの間隔を配列に格納
         this.def.push(this.nowTime[this.btncnt] - this.nowTime[this.btncnt - 1])
       }
-
+      //  tap間隔の差分
       if (this.btncnt < 2) {
         this.defdef = 0
       } else {
         this.defdef = Math.min(
-          //  defdefは１つ前のdefとの差、それぞれの倍数の余りを比較し、最小値を採用。btncnt > 1からdefdef取れる
+          //  defdefは１つ前のdefとの差、それぞれの倍数の余りを比較し、最小値を採用。btncnt > 1からdefdef取得可能。defは間隔なのでbtncntよりも一つ少ない
           Math.abs(this.def[this.btncnt - 1] - this.def[this.btncnt - 2]),
           Math.abs(this.def[this.btncnt - 1] % this.def[this.btncnt - 2]), Math.abs(this.def[this.btncnt - 2] % this.def[this.btncnt - 1])
         )
@@ -89,30 +89,34 @@ export default {
       //  console.log(Math.abs(def[btncnt-2] % def[btncnt - 3]))
       //  console.log(Math.abs(def[btncnt - 3] % def[btncnt-2]))
 
-      //  intervalが均一になっているか判定
+      //  interval同士が均一になっているか判定
       if (this.btncnt > 1) {
         this.def_total = this.def_total + this.defdef
       }
-      // intervalがbpm通りになっているか判定
+      // intervalがbpmに近い値になっているか判定
       if (this.btncnt > 0) {
-        this.interval_total = this.interval_total + Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000)
-        console.log(Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000))
-      }
-      console.log(this.defdef, Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000))
-      if ((this.defdef + Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000)) > 150) {
-        this.commentchg('bad...')
-        this.goodflgoff()
-      } else {
-        this.commentchg('good!')
-        this.goodflgon()
-      }
-      //  console.log(this.defdef)
-      //  console.log(this.def_total)
-      this.incrementbtncnt()
-      //  def_total, interval_total,総マイナス値の平均の値
-      //  console.log(this.def_total, this.interval_total)
-      //  console.log(this.def_total / this.btncnt * 0.05, this.interval_total / this.btncnt * 0.05)
+        var diff = Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000)
+        this.interval_total = this.interval_total + diff
 
+        console.log(this.defdef, diff)
+
+        if ((this.defdef + diff) < 150) {
+          this.commentchg('ultra good!!')
+          this.superflgon()
+        } else if ((this.defdef + diff) < 300) {
+          this.commentchg('good!')
+          this.goodflgon()
+          this.superflgoff()
+        } else {
+          this.commentchg('bad...')
+          this.goodflgoff()
+          this.superflgoff()
+        }
+      }
+
+      this.incrementbtncnt()
+      //  100から、都度総マイナス値の平均の値を引いている。プラスになることも。調整値0.05を掛けている
+      //  結果はvuexのcntにセット
       this.setcnt(Math.floor(100 - this.def_total / this.btncnt * 0.05 - this.interval_total / this.btncnt * 0.05))
     }
 
@@ -122,13 +126,12 @@ export default {
 </script>
 <style scoped>
 img {
-  width: 23%
+
 }
 
 .btnn {
   transition: filter .1s ease 0s;
-  width: 300px;
-  height: 300px;
+  width: 80vw;
   margin: 0 auto;
 }
 

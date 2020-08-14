@@ -56,7 +56,7 @@ height:20px;
 
 .progress{
 top: 0%;
-left:calc(80% - 40px);
+/*left:calc(80% - 40px);*/
 width: 80px;
 }
 
