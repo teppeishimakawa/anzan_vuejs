@@ -14,7 +14,6 @@ export default {
       PassageID: '',
       PassSec: 0,
       //  sec:タイムアップ時間,num:クリアに必要な正解回数
-      sec: 30,
       num: 3
     }
   },
@@ -23,7 +22,7 @@ export default {
     getsttflg () {
       return store.getters.getsttflg
     },
-    ...mapState(['cnt', 'intervalID', 'time', 'starttime'])
+    ...mapState(['cnt', 'intervalID', 'time', 'starttime', 'sec'])
   },
 
   watch: {

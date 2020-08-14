@@ -4,7 +4,7 @@
 </template>
 <script>
 import store from '../store'
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   data: function () {
@@ -14,7 +14,8 @@ export default {
   },
   // watch用
   computed: {
-    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'cnt']),
+    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'cnt', 'btncnt', 'bpm', 'sec']),
+    ...mapGetters(['getendflg']),
 
     getcnt () {
       return store.getters.getcnt
@@ -29,16 +30,32 @@ export default {
     }
   },
 
+  methods: {
+    // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
+    ...mapMutations(['setcnt'])
+  },
+
   watch: {
     getcnt (num, old) {
       console.log('watch', num)
       if (this.cnt < 0) {
-        this.score = 0 + '点!'
+        this.score = 0 + '点'
       } else {
-        this.score = this.cnt + '点!'
+        this.score = this.cnt + '点'
+      }
+    },
+    getendflg (num, old) {
+      console.log('watch', num)
+      console.log(this.btncnt, parseInt(this.bpm), this.sec)
+      this.setcnt(this.cnt - Math.abs((this.btncnt - parseInt(this.bpm) * this.sec / 60) * 10))
+      if (this.cnt < 0) {
+        this.score = 0 + '点'
+      } else {
+        this.score = this.cnt + '点'
       }
     }
   }
+
 }
 
 </script>

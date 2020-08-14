@@ -5,6 +5,7 @@
       <div class="question">
         <label>bpm:</label>
         <input type="text" v-model="bpm">
+        <span :class="classObjE">{{this.comment}}</span>
       </div>
     </div>
   </div>
@@ -32,14 +33,14 @@ export default {
 
   computed: {
 
-    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question', 'question2', 'src', 'src2', 'bpm']),
+    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question', 'question2', 'src', 'src2', 'bpm', 'comment', 'goodflg']),
     ...mapGetters(['getsttflg', 'getendflg', 'getbpm']),
 
-    classObjC: function () {
+    classObjE: function () {
       return {
         notlook: !this.sttflg || this.endflg,
-        redSudden: this.ngflg,
-        greenSudden: this.okflg
+        redSudden: !this.goodflg,
+        greenSudden: this.goodflg
       }
     },
     bpm: {
@@ -72,4 +73,9 @@ export default {
 
 </script>
 <style scoped>
+
+span{
+font-size: 60px;
+font-weight: bold;
+}
 </style>

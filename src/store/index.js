@@ -19,7 +19,11 @@ export default new Vuex.Store({
     bpm: 20,
     bufferSource: '',
     ctx: '',
-    bufdata: ''
+    bufdata: '',
+    btncnt: 0,
+    sec: 30,
+    goodflg: true,
+    comment: ''
   },
 
   // getters:storeの複数stateを使って計算した結果を取得をするもの
@@ -70,9 +74,6 @@ export default new Vuex.Store({
     answerexist (state, param) {
       state.answer = param
     },
-    commentchg (state, param) {
-      state.comment = param
-    },
     questionchg (state, param) {
       state.question = param
     },
@@ -112,6 +113,18 @@ export default new Vuex.Store({
     },
     setbuf (state, param) {
       state.bufferSource = param
+    },
+    incrementbtncnt (state) {
+      state.btncnt++
+    },
+    goodflgon (state) {
+      state.goodflg = true
+    },
+    goodflgoff (state) {
+      state.goodflg = false
+    },
+    commentchg (state, param) {
+      state.comment = param
     }
   },
 

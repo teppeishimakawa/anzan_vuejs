@@ -16,7 +16,6 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
-      btncnt: 0,
       score: 0,
       def: [],
       def_total: 0,
@@ -28,7 +27,7 @@ export default {
 
   computed: {
 
-    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question', 'question2', 'src', 'src2', 'bpm', 'duration', 'sttflg', 'cnt', 'bufferSource', 'ctx', 'bufdata']),
+    ...mapState(['sttflg', 'endflg', 'okflg', 'ngflg', 'answer', 'comment', 'question', 'question2', 'src', 'src2', 'bpm', 'duration', 'sttflg', 'cnt', 'bufferSource', 'ctx', 'bufdata', 'btncnt', 'goodflg']),
     ...mapGetters(['getsttflg', 'getendflg']),
 
     classObjC: function () {
@@ -54,14 +53,15 @@ export default {
 
   methods: {
     // this.$store.commit('xxxx')`をthis.xxx()`で呼べるようにする
-    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'okflgoff', 'ngflgon', 'ngflgoff', 'increment', 'decrement', 'commentchg', 'questionchg', 'question2chg', 'srcchg', 'src2chg', 'sttflgon', 'setcnt', 'setbuf', 'setctx', 'setdata']),
+    ...mapMutations(['answerexist', 'aopen', 'aclose', 'okflgon', 'okflgoff', 'ngflgon', 'ngflgoff', 'increment', 'decrement', 'commentchg', 'questionchg', 'question2chg', 'srcchg', 'src2chg', 'sttflgon', 'setcnt', 'setbuf', 'setctx', 'setdata', 'incrementbtncnt', 'goodflgon', 'goodflgoff']),
 
     click () {
+      //  console.log(parseInt(this.bpm))
       //  console.log(this.cnt)
       var comp = this.ctx
       var bufferSource = comp.createBufferSource()
-      console.log(bufferSource)
-      console.log(this.bufdata)
+      //  console.log(bufferSource)
+      //  console.log(this.bufdata)
       bufferSource.buffer = this.bufdata
       bufferSource.connect(comp.destination)
       bufferSource.start(0)
@@ -89,19 +89,29 @@ export default {
       //  console.log(Math.abs(def[btncnt-2] % def[btncnt - 3]))
       //  console.log(Math.abs(def[btncnt - 3] % def[btncnt-2]))
 
+      //  intervalが均一になっているか判定
       if (this.btncnt > 1) {
         this.def_total = this.def_total + this.defdef
       }
-
+      // intervalがbpm通りになっているか判定
       if (this.btncnt > 0) {
-        this.interval_total = this.interval_total + Math.abs(this.def[this.btncnt - 1] - 60 / this.bpm * 1000)
-        console.log(Math.abs(this.def[this.btncnt - 1] - 60 / this.bpm * 1000))
+        this.interval_total = this.interval_total + Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000)
+        console.log(Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000))
       }
-
+      console.log(this.defdef, Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000))
+      if ((this.defdef + Math.abs(this.def[this.btncnt - 1] - 60 / parseInt(this.bpm) * 1000)) > 150) {
+        this.commentchg('bad...')
+        this.goodflgoff()
+      } else {
+        this.commentchg('good!')
+        this.goodflgon()
+      }
       //  console.log(this.defdef)
       //  console.log(this.def_total)
-      this.btncnt++
-      console.log(this.def_total, this.interval_total, this.def_total / this.btncnt * 0.05, this.interval_total / this.btncnt * 0.01)
+      this.incrementbtncnt()
+      //  def_total, interval_total,総マイナス値の平均の値
+      //  console.log(this.def_total, this.interval_total)
+      //  console.log(this.def_total / this.btncnt * 0.05, this.interval_total / this.btncnt * 0.05)
 
       this.setcnt(Math.floor(100 - this.def_total / this.btncnt * 0.05 - this.interval_total / this.btncnt * 0.05))
     }
